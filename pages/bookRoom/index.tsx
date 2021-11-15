@@ -1,10 +1,9 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import ABI from "../ABI.json";
+
 import { useState, useEffect } from "react";
-import { Rooms } from "../Components/Rooms/Rooms";
-import { IRoom } from "../types";
+
 declare const window: any;
 
 // Declare matic mumbai provider
@@ -13,7 +12,11 @@ const NODE_URL =
 const provider = new Web3.providers.HttpProvider(NODE_URL);
 const web3 = new Web3(provider);
 
-console.log(ABI);
+
+
+
+
+
 
 const contractAddress: string = "0xb03bc58c6e44a0E67800e87E0FE403a185bCf308";
 
@@ -23,20 +26,8 @@ const myContractInstance = new web3.eth.Contract(
 );
 
 const Home: NextPage = () => {
- 
-  async function getTimeStamp() {
-    const blockNumber: number = await web3.eth.getBlockNumber();
-    const timeStamp =  (await web3.eth.getBlock(blockNumber)).timestamp;
-    
-    return Number(timeStamp);
-  }
-  const [timeStamp, setTimeStamp] = useState<number>(0);
-  getTimeStamp().then(e => {setTimeStamp(e)});
-  console.log(6,timeStamp)
-  
-  const [rooms, setRooms] = useState<Array<IRoom>>([]);
+
   const [owner, setOwner] = useState<string>("");
-  
   let pubkey: string[];
 
   const connectWithMetamask = async () => {
@@ -56,22 +47,8 @@ const Home: NextPage = () => {
     myContractInstance.methods
       .hotelStatus()
       .call()
-      .then((e: Array<IRoom>) => {
-        setRooms(
-          e.map(
-            ({ daysBooked, nameBooking, roomNumber, status, bookedTime }) => {
-              return {
-                daysBooked,
-                nameBooking,
-                roomNumber,
-                status,
-                bookedTime,
-              };
-            }
-          )
-        );
-      });
-    console.log(1, rooms);
+      .then(e: any =>{console.log(e)})
+        
   }
 
   function getOwner(): void {
@@ -105,18 +82,16 @@ const Home: NextPage = () => {
   useEffect(() => {
     checkHotelStatus();
     getOwner();
+    
   }, []);
   return (
     <div className="flex flex-col justify-center items-center">
-      <button className="bg-green-100" onClick={checkHotelStatus}>
-        Update hotel status
-      </button>
-      <button className="bg-green-100" onClick={bookRoom}>
-        Book 1 room
-      </button>
-      <Rooms rooms={rooms} owner={owner} currentTime={timeStamp}/>
+      <button className="bg-green-100" onClick={checkHotelStatus}>Update hotel status</button>
+      <button className="bg-green-100" onClick={bookRoom}>Book 1 room</button>
+      <Rooms rooms={rooms} owner={owner} />
     </div>
   );
 };
 
 export default Home;
+
