@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import ABI from "../ABI.json";
+import ABI from "../contracts/ABI.json";
 import { useState, useEffect } from "react";
 import { Rooms } from "../Components/Rooms/Rooms";
 import { IRoom } from "../types";
