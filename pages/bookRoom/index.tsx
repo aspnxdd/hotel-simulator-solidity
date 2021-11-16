@@ -163,7 +163,7 @@ const Form = ({
     <div className="flex border-b-2 border-solid w-96 -ml-4 mt-2"></div>
     <div className="flex  font-bold mt-6 space-x-40 items-center">
       <div className=" text-left"> Total Price: </div>
-      <div className="text-maticColor text-xl text-right  flex space-x-2 ">
+      <div className="text-maticColor text-xl text-right pl-6  flex space-x-2 ">
         <div>{Math.round(1/10 * days * 1000) / 1000}</div>
         <img
           src="./static/polygon-matic-logo.svg"
