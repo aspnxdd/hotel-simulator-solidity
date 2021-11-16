@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-
-import { useState, useEffect } from "react";
-
+import { contractAddress } from "../../contracts/contract";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import ABI from "../../contracts/ABI.json";
+import { IRoom } from "../../types";
 declare const window: any;
 
 // Declare matic mumbai provider
@@ -12,22 +13,16 @@ const NODE_URL =
 const provider = new Web3.providers.HttpProvider(NODE_URL);
 const web3 = new Web3(provider);
 
-
-
-
-
-
-
-const contractAddress: string = "0xb03bc58c6e44a0E67800e87E0FE403a185bCf308";
-
 const myContractInstance = new web3.eth.Contract(
   ABI as AbiItem[],
   contractAddress
 );
 
 const Home: NextPage = () => {
-
+  const [days, setDays] = useState<number>(1);
+  const [rooms, setRooms] = useState<Array<IRoom>>([]);
   const [owner, setOwner] = useState<string>("");
+
   let pubkey: string[];
 
   const connectWithMetamask = async () => {
@@ -47,8 +42,21 @@ const Home: NextPage = () => {
     myContractInstance.methods
       .hotelStatus()
       .call()
-      .then(e: any =>{console.log(e)})
-        
+      .then((e: Array<IRoom>) => {
+        setRooms(
+          e.map(
+            ({ daysBooked, nameBooking, roomNumber, status, bookedTime }) => {
+              return {
+                daysBooked,
+                nameBooking,
+                roomNumber,
+                status,
+                bookedTime,
+              };
+            }
+          )
+        );
+      });
   }
 
   function getOwner(): void {
@@ -63,13 +71,10 @@ const Home: NextPage = () => {
   async function bookRoom() {
     const transactionParameters = {
       nonce: "0x00", // ignored by MetaMask
-      // gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-      // gas: '0x2710', // customizable by user during MetaMask confirmation.
+
       to: contractAddress, // Required except during contract publications.
       from: pubkey[0], // must match user's active address.
-      value: "2", // wei
-
-      // chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      value: String(1e14 * days), // wei
     };
     const _txHash = await window.ethereum
       .request({
@@ -82,16 +87,96 @@ const Home: NextPage = () => {
   useEffect(() => {
     checkHotelStatus();
     getOwner();
-    
   }, []);
   return (
     <div className="flex flex-col justify-center items-center">
-      <button className="bg-green-100" onClick={checkHotelStatus}>Update hotel status</button>
-      <button className="bg-green-100" onClick={bookRoom}>Book 1 room</button>
-      <Rooms rooms={rooms} owner={owner} />
+      <div className="flex flex-row mt-6">
+        Free rooms:{" "}
+        {rooms.map((e) => {
+          if (e.status == "0")
+            return (
+              <h6
+                className="bg-indigo-200 mx-2.5 rounded-full w-6 h-6 text-center"
+                key={Number(e.roomNumber)}
+              >
+                {e.roomNumber}
+              </h6>
+            );
+        })}
+      </div>
+      <Form owner={owner} days={days} setDays={setDays} />
+      <button
+        className="bg-indigo-300 rounded-3xl w-auto p-2 text-white font-bold mt-2 hover:scale-105 hover:bg-indigo-400 transition-all ease-linear duration-100"
+        onClick={bookRoom}
+      >
+        Book now
+      </button>
     </div>
   );
 };
 
 export default Home;
 
+const Form = ({
+  days,
+  setDays,
+  owner
+}: {
+  days: number;
+  setDays: Dispatch<SetStateAction<number>>;
+  owner:string
+}) => (
+  <div className="w-96 h-56 rounded-md  border-indigo-300 border-solid border-0 mt-8 flex flex-col place-items-start pl-4 justify-center xxl-shadow">
+    <div className="text-xl font-bold">
+    Hotel owner
+    </div>
+    
+    <div className="text-xs text-maticColor">
+    {owner}
+    </div>
+    <div className="flex border-b-2 border-solid w-96 -ml-4 my-1"></div>
+    <div className="flex space-x-2 items-center">
+      <div >Booking price: 0.0723 </div>
+      <img
+        src="./static/polygon-matic-logo.svg"
+        alt="matic"
+        className="w-4 scale-90"
+      />{" "}
+      <div>/day</div>
+    </div>
+    <div className="flex items-center">
+      <p className="text-gray-600">Days booked</p>
+
+      <button
+        className="rounded-full flex justify-center items-center shadow-xl hover:scale-110 transition-all ease-linear duration-100 text-center 
+    p-0 font-bold text-2xl bg-indigo-200 text-white border-indigo-200 border-solid border-2 h-8 w-8 pb-1.5 m-4 "
+        onClick={() => {
+          if (days > 1) setDays(days - 1);
+        }}
+      >
+        -{" "}
+      </button>
+      <p className="text-gray-700 font-bold text-xl">{days}</p>
+      
+      <button
+        className="rounded-full flex justify-center items-center shadow-xl hover:scale-110 transition-all ease-linear duration-100 text-center 
+    p-0 font-bold text-2xl bg-indigo-200 text-white border-indigo-200 border-solid border-2 h-8 w-8 m-4 pb-0.5 "
+        onClick={() => setDays(days + 1)}
+      >
+        +{" "}
+      </button>
+    </div>
+    <div className="flex border-b-2 border-solid w-96 -ml-4 mt-2"></div>
+    <div className="flex  font-bold mt-6 space-x-40 items-center">
+      <div className=" text-left"> Total Price: </div>
+      <div className="text-maticColor text-xl text-right  flex space-x-2 ">
+        <div>{Math.ceil(0.072058 * days * 1000) / 1000}</div>
+        <img
+          src="./static/polygon-matic-logo.svg"
+          alt="matic"
+          className="w-6 scale-90"
+        />
+      </div>
+    </div>
+  </div>
+);

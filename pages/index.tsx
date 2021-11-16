@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Rooms } from "../Components/Rooms/Rooms";
 import { IRoom } from "../types";
 declare const window: any;
-
+import { contractAddress } from "../contracts/contract";
 // Declare matic mumbai provider
 const NODE_URL =
   "https://speedy-nodes-nyc.moralis.io/b10fb33699b38624a55cb2c9/polygon/mumbai";
@@ -15,7 +15,7 @@ const web3 = new Web3(provider);
 
 console.log(ABI);
 
-const contractAddress: string = "0xb03bc58c6e44a0E67800e87E0FE403a185bCf308";
+
 
 const myContractInstance = new web3.eth.Contract(
   ABI as AbiItem[],
@@ -31,8 +31,8 @@ const Home: NextPage = () => {
     return Number(timeStamp);
   }
   const [timeStamp, setTimeStamp] = useState<number>(0);
-  getTimeStamp().then(e => {setTimeStamp(e)});
-  console.log(6,timeStamp)
+  
+ 
   
   const [rooms, setRooms] = useState<Array<IRoom>>([]);
   const [owner, setOwner] = useState<string>("");
@@ -57,6 +57,8 @@ const Home: NextPage = () => {
       .hotelStatus()
       .call()
       .then((e: Array<IRoom>) => {
+        getTimeStamp().then(e => {setTimeStamp(e)});
+        console.log(6,timeStamp)
         setRooms(
           e.map(
             ({ daysBooked, nameBooking, roomNumber, status, bookedTime }) => {
@@ -108,12 +110,14 @@ const Home: NextPage = () => {
   }, []);
   return (
     <div className="flex flex-col justify-center items-center">
+      
       <button className="bg-green-100" onClick={checkHotelStatus}>
         Update hotel status
       </button>
       <button className="bg-green-100" onClick={bookRoom}>
         Book 1 room
       </button>
+      
       <Rooms rooms={rooms} owner={owner} currentTime={timeStamp}/>
     </div>
   );
