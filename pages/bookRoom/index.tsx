@@ -127,7 +127,10 @@ const Form = ({
   <div className="w-96 h-56 rounded-md  border-indigo-300 border-solid border-0 mt-8 flex flex-col place-items-start pl-4 justify-center xxl-shadow">
     <div className="text-xl font-bold">Hotel owner</div>
 
-    <div className="text-sm text-maticColor">{`${owner.substring(0,6)}...${owner.substring(39,42)}`}</div>
+    <div className="text-sm text-maticColor">{`${owner.substring(
+      0,
+      6
+    )}...${owner.substring(39, 42)}`}</div>
     <div className="flex border-b-2 border-solid w-96 -ml-4 my-1"></div>
     <div className="flex space-x-2 items-center">
       <div>Booking price: 0.1 </div>
@@ -164,7 +167,7 @@ const Form = ({
     <div className="flex  font-bold mt-6 space-x-40 items-center">
       <div className=" text-left"> Total Price: </div>
       <div className="text-maticColor text-xl text-right pl-6  flex space-x-2 ">
-        <div>{Math.round(1/10 * days * 1000) / 1000}</div>
+        <div>{Math.round((1 / 10) * days * 1000) / 1000}</div>
         <img
           src="./static/polygon-matic-logo.svg"
           alt="matic"

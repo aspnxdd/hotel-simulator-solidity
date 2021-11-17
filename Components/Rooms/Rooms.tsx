@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { Hotel, Room, Address, Owner,Label } from "./RoomsElements";
-import {IRoom, IHotel } from "../../types"
+import React from "react";
+import { Hotel, Room, Owner,Label,RoomNumber,DaysBooked,Address,Time } from "./RoomsElements";
+import {IHotel } from "../../types"
 
 const empty:string = ""
 
 export const Rooms = ({ rooms, owner, currentTime }: IHotel) => {
   return (
     <div className="flex flex-col align-middle">
-      <Owner>Owner: {owner}</Owner>
+      <Owner>Owner: {owner.substring(0,6)}...{owner.substring(39,42)}</Owner>
       <Hotel>
         {rooms.map((room) => {
           return (
-            <Room key={Number(room.roomNumber)}>
+            <Room status={room.status} key={Number(room.roomNumber)} >
+              <RoomNumber>{room.roomNumber} </RoomNumber>
               <Label marginBottom="1rem">{room.status=="0" ? "Free" : "Occupied by:" }</Label>
-               <Label marginBottom="0rem">{room.status=="0" ? empty : room.nameBooking}</Label>
+               { room.status=="1" && <Address >{room.nameBooking.substring(0,6)}...{room.nameBooking.substring(39,42)}</Address>}
                
-               <Label marginBottom="2rem">{room.status=="0" ? empty : `Days booked:  ${room.daysBooked}`}</Label>
-               <Label marginBottom="-0.9rem">Room number: {room.roomNumber}</Label> 
-               <Label marginBottom="-2rem">{room.status=="0" ? empty : "Time: "+  Math.ceil(Number(Number(room.daysBooked)*24*3600-(currentTime - Number(room.bookedTime)))/3600*10)/10  + " hours remaining"} </Label> 
+               <DaysBooked >{room.status=="0" ? empty : `Days booked:  ${room.daysBooked}`}</DaysBooked>
+               
+               <Time>{room.status=="0" ? empty : "Time: "+  Math.ceil(Number(Number(room.daysBooked)*24*3600-(currentTime - Number(room.bookedTime)))/3600*10)/10  + " h"} </Time> 
             </Room>
           );
         })}
@@ -25,5 +26,7 @@ export const Rooms = ({ rooms, owner, currentTime }: IHotel) => {
     </div>
   );
 };
+
+
 
 // export default Rooms;
