@@ -6,7 +6,7 @@ module.exports = {
       'sidebar-icon ',
       'sidebar-icon-bottom',
       'sidebar-tooltip',
-      "flex", "justify-end", "mr-6"
+      'sidebar'
     ]
   },
   mode: "jit",

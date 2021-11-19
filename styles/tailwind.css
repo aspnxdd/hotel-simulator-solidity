@@ -9,17 +9,17 @@
   border-spacing: 0 15px;
 }
 
-
 .table tr {
   border-radius: 20px;
 }
 
-
-tr th:nth-child(4),td:nth-child(4) {
+tr th:nth-child(4),
+td:nth-child(4) {
   border-radius: 0 0.625rem 0.625rem 0;
 }
 
-tr th:nth-child(1),td:nth-child(1) {
+tr th:nth-child(1),
+td:nth-child(1) {
   border-radius: 0.625rem 0 0 0.625rem;
 }
 
@@ -60,12 +60,13 @@ tr th:nth-child(1),td:nth-child(1) {
   }
 }
 
-
 @layer components {
   * {
     @apply font-ShipporiAntique;
   }
-
+  .sidebar {
+    @apply fixed top-0 left-0 z-10 flex flex-col w-20 h-screen m-0 text-white shadow-lg bg-primary;
+  }
   .sidebar-icon {
     @apply relative flex items-center justify-center w-12 h-12 mx-auto mt-4 text-indigo-400 transition-all duration-300 ease-linear bg-gray-800 shadow-lg cursor-pointer hover:bg-indigo-500 hover:text-white rounded-3xl hover:rounded-xl hover:scale-105;
   }
