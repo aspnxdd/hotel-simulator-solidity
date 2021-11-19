@@ -35,8 +35,11 @@ const connectWithMetamask = async () => {
 
 
 useEffect(() => {
+  if(window.ethereum){
+
     connectWithMetamask();
     window.ethereum.on("accountsChanged",connectWithMetamask)
+  }
 })
 
 
