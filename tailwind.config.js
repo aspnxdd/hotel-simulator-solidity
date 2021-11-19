@@ -5,7 +5,8 @@ module.exports = {
     safelist: [
       'sidebar-icon ',
       'sidebar-icon-bottom',
-      'sidebar-tooltip'
+      'sidebar-tooltip',
+      "flex", "justify-end", "mr-6"
     ]
   },
   mode: "jit",
