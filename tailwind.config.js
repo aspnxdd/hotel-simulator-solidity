@@ -1,13 +1,8 @@
 // const colors = require("tailwindcss/colors")
 
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-    defaultLineHeights: true,
-    standardFontWeights: true,
-  },
-  purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
+
+  purge: [],
   mode: "jit",
   darkMode: false, // or 'media' or 'class'
   theme: {
