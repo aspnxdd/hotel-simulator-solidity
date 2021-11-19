@@ -68,7 +68,7 @@ const Home: NextPage = () => {
                       <td className="p-1 text-center">{hotel.hotel.roomNumbers}</td>
                       <td className="p-1 text-center">{hotel.hotelContract}</td>
                       <td className="p-2 text-center"> <Link  href={"/hotels/"+hotel.hotelContract+"-"+hotel.hotel.hotelName}>
-                    <a className="p-0.5 bg-white rounded-xl ">Visit hotel</a></Link></td>
+                    <a className="px-2 py-0.5 bg-white rounded-xl hover:rounded-md hover:bg-maticColor hover:text-white transition-all ease-in-out duration-150">Visit hotel</a></Link></td>
                     
                 </tr>
            

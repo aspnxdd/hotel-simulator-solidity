@@ -1,8 +1,8 @@
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
 import ABI from "../../contracts/Master_ABI.json";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import Link from "next/link";
 declare const window: any;
 import { Master } from "../../contracts/contract";
 import React from "react";
@@ -18,12 +18,17 @@ console.log(ABI);
 
 const myContractInstance = new web3.eth.Contract(ABI as AbiItem[], Master);
 
-let pubkey: string[];
 const CreateHotel = () => {
+  const [loader, setLoader] = useState<boolean>(false);
+  const [successfulCreation, setSuccessfulCreation] = useState<string | null>(
+    null
+  );
+  const [pubkey, setPubkey] = useState<string>("");
   const connectWithMetamask = async () => {
     const web3 = new Web3(window.ethereum);
     try {
-      pubkey = await web3.eth.requestAccounts();
+      const _pubkey = await web3.eth.requestAccounts();
+      setPubkey(_pubkey[0]);
     } catch (err) {
       console.error(err);
     }
@@ -42,10 +47,12 @@ const CreateHotel = () => {
 
   async function createHotel() {
     const web3 = new Web3(window.ethereum);
+    setLoader(true);
+    setSuccessfulCreation(null);
     console.log(1, pubkey);
     const transactionParameters = {
       to: Master, // Required except during contract publications.
-      from: pubkey[0], // must match user's active address.
+      from: pubkey, // must match user's active address.
       value: String(1e17), // wei
       data: myContractInstance.methods
         .createHotel(
@@ -55,9 +62,13 @@ const CreateHotel = () => {
         .encodeABI(),
     };
 
-    await web3.eth
-      .sendTransaction(transactionParameters)
-      .then((e: any) => console.log(15, e));
+    await web3.eth.sendTransaction(transactionParameters).then((e: any) => {
+      setLoader(false);
+      setSuccessfulCreation(e.transactionHash);
+      console.log(15, e);
+    }).catch(err=>{
+      if(err.code===4001) setLoader(false);
+    });
   }
 
   useEffect(() => {
@@ -101,6 +112,17 @@ const CreateHotel = () => {
           Submit
         </button>
       </div>
+      {loader && <div className="lds-hourglass w-auto mt-2"></div>}
+      {successfulCreation && (
+        <h1 className="mt-4">
+          Successfully created. Check tx:{" "}
+          <Link
+            href={`https://mumbai.polygonscan.com/tx/${successfulCreation}`}
+          >
+            <a className="text-maticColor">{successfulCreation}</a>
+          </Link>
+        </h1>
+      )}
     </form>
   );
 };

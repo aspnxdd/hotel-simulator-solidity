@@ -5,7 +5,8 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import ABI from "../../../contracts/HotelBooking_ABI.json";
 import { IRoom } from "../../../types";
 import { Contract } from "web3-eth-contract";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import Link from "next/link";
 declare const window: any;
 
 // Declare matic mumbai provider
@@ -15,7 +16,12 @@ const provider = new Web3.providers.HttpProvider(NODE_URL);
 const web3 = new Web3(provider);
 
 const Home: NextPage = () => {
-const router = useRouter();
+
+
+    
+ 
+ 
+  const router = useRouter();
   const [days, setDays] = useState<number>(1);
   const [rooms, setRooms] = useState<Array<IRoom>>([]);
   const [owner, setOwner] = useState<string>("");
@@ -23,9 +29,9 @@ const router = useRouter();
     null
   );
   const [contractAddress, setContractAddress] = useState<string | null>(null);
-  const [pubkey, setPubkey] = useState<string>("")
-
-
+  const [pubkey, setPubkey] = useState<string>("");
+  const [loader, setLoader] = useState<boolean>(false);
+  const [succesfulBooked, setSuccesfulBooked] = useState<string | null>(null);
 
   function getHotel(id: string[] | string) {
     if (Array.isArray(id)) return;
@@ -33,11 +39,10 @@ const router = useRouter();
     const [_contractAddress, ..._hotelName] = idSpread;
     setContractAddress(_contractAddress);
   }
-  
+
   useEffect(() => {
-    
     if (router.query.id) {
-      console.log(2)
+      console.log(2);
       getHotel(router.query.id);
     }
   }, [router.query.id]);
@@ -54,16 +59,18 @@ const router = useRouter();
   useEffect(() => {
     checkHotelStatus();
     getOwner();
-  }, [myContractInstance])
+  }, [myContractInstance]);
 
   const connectWithMetamask = async () => {
-    const web3 = new Web3(window.ethereum);
-    try {
-      const _pubkey = await web3.eth.requestAccounts();
-      setPubkey(_pubkey[0])
-      
-    } catch (err) {
-      // { code: 4001, message: 'User rejected the request.' }
+    if(typeof window !== "undefined"){
+
+      const web3 = new Web3(window.ethereum);
+      try {
+        const _pubkey = await web3.eth.requestAccounts();
+        setPubkey(_pubkey[0]);
+      } catch (err) {
+        // { code: 4001, message: 'User rejected the request.' }
+      }
     }
   };
 
@@ -71,65 +78,72 @@ const router = useRouter();
 
   function checkHotelStatus(): void {
     if (myContractInstance) {
-    myContractInstance.methods
-      .hotelStatus()
-      .call()
-      .then((e: Array<IRoom>) => {
-        console.log(22,e)
-        setRooms(
-          e.map(
-            ({ daysBooked, nameBooking, roomNumber, status, bookedTime }) => {
-              return {
-                daysBooked,
-                nameBooking,
-                roomNumber,
-                status,
-                bookedTime,
-              };
-            }
-          )
-        );
-      });
+      myContractInstance.methods
+        .hotelStatus()
+        .call()
+        .then((e: Array<IRoom>) => {
+          console.log(22, e);
+          setRooms(
+            e.map(
+              ({ daysBooked, nameBooking, roomNumber, status, bookedTime }) => {
+                return {
+                  daysBooked,
+                  nameBooking,
+                  roomNumber,
+                  status,
+                  bookedTime,
+                };
+              }
+            )
+          );
+        });
     }
   }
 
   function getOwner(): void {
     if (myContractInstance) {
-    myContractInstance.methods
-      .owner()
-      .call()
-      .then((e: string) => {
-        setOwner(e);
-      });
+      myContractInstance.methods
+        .owner()
+        .call()
+        .then((e: string) => {
+          setOwner(e);
+        });
     }
   }
 
   async function bookRoom() {
-    if (myContractInstance && contractAddress) {
-      console.log(pubkey)
-    const web3 = new Web3(window.ethereum);
-    const transactionParameters = {
-      to: contractAddress, // Required except during contract publications.
-      from: pubkey, // must match user's active address.
-      value: String(1e17 * days), // wei
-      data: myContractInstance.methods.bookRoom(days).encodeABI(),
-    };
+    if (myContractInstance && contractAddress && window) {
+      setLoader(true);
+      setSuccesfulBooked("")
+      console.log(pubkey);
+      const web3 = new Web3(window.ethereum);
+      const transactionParameters = {
+        to: contractAddress, // Required except during contract publications.
+        from: pubkey, // must match user's active address.
+        value: String(1e17 * days), // wei
+        data: myContractInstance.methods.bookRoom(days).encodeABI(),
+      };
 
-    await web3.eth
-      .sendTransaction(transactionParameters)
-      .then((e: any) => console.log(15, e));
-}
+      await web3.eth.sendTransaction(transactionParameters).then((e: any) => {
+        setLoader(false);
+        setSuccesfulBooked(e.transactionHash);
+        console.log(15, e);
+      }).catch(err=>{
+        
+        if(err.code===4001) setLoader(false);
+      });;
+    }
   }
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex flex-row items-center mt-6">
         Free rooms:{" "}
+      <div className="flex flex-row flex-wrap items-center mx-72">
         {rooms.map((e) => {
           if (e.status == "0")
             return (
               <h6
-                className="bg-indigo-200 mx-2.5 rounded-full w-8 h-8 flex justify-center items-center pb-0.5 cursor-default"
+                className="bg-indigo-200 m-2 rounded-full w-8 h-8 flex justify-center items-center pb-0.5 cursor-default"
                 key={Number(e.roomNumber)}
               >
                 {e.roomNumber}
@@ -144,6 +158,16 @@ const router = useRouter();
       >
         Book now
       </button>
+
+      {loader && <div className="lds-hourglass w-auto mt-2"></div>}
+      {succesfulBooked && (
+        <h1 className="mt-4">
+          Successfully booked. Check tx:{" "}
+          <Link href={`https://mumbai.polygonscan.com/tx/${succesfulBooked}`}>
+            <a className="text-maticColor">{succesfulBooked}</a>
+          </Link>
+        </h1>
+      )}
     </div>
   );
 };
