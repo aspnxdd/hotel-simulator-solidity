@@ -2,16 +2,45 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
+ struct Hotel{
+        string hotelName;
+        uint roomNumbers;
+    }
+    
+     struct HotelContract{
+        Hotel hotel;
+        address hotelContract;
+    }
+
+contract Master{
+    
+    HotelContract[] public hotels;
+
+   
+    
+    function createHotel(string memory _hotelName, uint _roomNumbers) public returns(address){
+       address hotelContract  = address(new HotelBooking(_roomNumbers,msg.sender));
+       hotels.push(HotelContract(Hotel(_hotelName,_roomNumbers),hotelContract));
+       return hotelContract;
+   }
+   
+   function returnHotels() public view  returns(HotelContract[] memory) {
+       return hotels;
+   }
+   
+}
+
 contract HotelBooking {
+    
+    
    
-    uint[] public roomNumbers = [1,2];
+    uint[] public roomNumbers;
    
-    //mapping(uint => Room) public rooms ;
     //better use array if mapping's key is a uint
     Room[] public rooms ;
    
     enum Statuses { Free, Occupied }
-   
+    
     struct Room{
         uint daysBooked;
         Statuses status;
@@ -34,13 +63,22 @@ contract HotelBooking {
     //payable makes it that it can transfer/send eth
     address payable public owner;
    
-    constructor() {
-        owner = payable(msg.sender);
+    constructor(uint _roomNumber,address _owner) {
+        owner = payable(_owner);
+        // set how many rooms per hotel
+        for(uint i=0;i<_roomNumber;i++){
+            roomNumbers.push(i+1);
+        }
+        //hotels.push(Hotel(_hotel.hotelName,_hotel.roomNumbers));
+        
         for(uint i=0;i<roomNumbers.length;i++){
             rooms.push(Room(0, Statuses.Free, owner, roomNumbers[i],0));
         }
        
     }
+   uint y;
+    fallback() external {  y = 2; }
+
    
    
     function checkFreeRoom() public view returns(uint){
@@ -54,6 +92,7 @@ contract HotelBooking {
     }
    
     function bookRoom(address _address, uint _daysBooked) public payable returns (uint){
+        require(msg.value > 1,"pay!!");
         refreshRoomsStatus();
         uint _roomNumber = checkFreeRoom();
        
@@ -61,6 +100,8 @@ contract HotelBooking {
        
         rooms[_roomNumber-1] = Room( _daysBooked, Statuses.Occupied, _address, _roomNumber, block.timestamp);
         room = _roomNumber;
+        owner.transfer(msg.value);
+        emit Occupy(msg.sender, msg.value,room );
         return _roomNumber;
     }
    
@@ -72,21 +113,27 @@ contract HotelBooking {
         }
    }
    
-   modifier costs(uint daysBooked) {
+  
+   
+   /*modifier costs(uint daysBooked) {
         if (msg.value == daysBooked) {
             _;
         }
-    }
+    }*/
     
    
     function hotelStatus() public view returns (Room [] memory){
         return rooms;
     }
  
-    receive() external payable{
-        require(msg.value > 1,"pay!!");
-        room = bookRoom(msg.sender, msg.value); //wei
-        owner.transfer(msg.value);
-        emit Occupy(msg.sender, msg.value,room );
-    }
+    
 }
+
+
+
+
+
+
+
+
+

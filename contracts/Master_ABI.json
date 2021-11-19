@@ -1,0 +1,117 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_hotelName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_roomNumbers",
+				"type": "uint256"
+			}
+		],
+		"name": "createHotel",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "hotels",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "hotelName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "roomNumbers",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Hotel",
+				"name": "hotel",
+				"type": "tuple"
+			},
+			{
+				"internalType": "address",
+				"name": "hotelContract",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "masterOwner",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "returnHotels",
+		"outputs": [
+			{
+				"components": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "hotelName",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "roomNumbers",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct Hotel",
+						"name": "hotel",
+						"type": "tuple"
+					},
+					{
+						"internalType": "address",
+						"name": "hotelContract",
+						"type": "address"
+					}
+				],
+				"internalType": "struct HotelContract[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

@@ -11,3 +11,13 @@ export interface IHotel {
   owner: string;
   currentTime: number
 }
+
+export interface IHotelContract {
+  hotelContract:string;
+  hotel: IHotelInstance;
+
+}
+export interface IHotelInstance{
+  hotelName:string;
+  roomNumbers: string;
+}

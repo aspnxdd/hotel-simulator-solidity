@@ -1,12 +1,14 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import ABI from "../contracts/ABI.json";
+import ABI from "../contracts/Master_ABI.json";
 import { useState, useEffect } from "react";
 import { Rooms } from "../Components/Rooms/Rooms";
-import { IRoom } from "../types";
+import { IHotelContract, IHotelInstance } from "../types";
 declare const window: any;
-import { contractAddress } from "../contracts/contract";
+import { Master } from "../contracts/contract";
+import { Hotel } from "../Components/Rooms/RoomsElements";
+import { json } from "stream/consumers";
 // Declare matic mumbai provider
 const NODE_URL =
   "https://speedy-nodes-nyc.moralis.io/b10fb33699b38624a55cb2c9/polygon/mumbai";
@@ -15,90 +17,59 @@ const web3 = new Web3(provider);
 
 console.log(ABI);
 
-
-
-const myContractInstance = new web3.eth.Contract(
-  ABI as AbiItem[],
-  contractAddress
-);
+const myContractInstance = new web3.eth.Contract(ABI as AbiItem[], Master);
+let pubkey: string[];
 
 const Home: NextPage = () => {
- 
-  async function getTimeStamp() {
-    const blockNumber: number = await web3.eth.getBlockNumber();
-    const timeStamp =  (await web3.eth.getBlock(blockNumber)).timestamp;
-    
-    return Number(timeStamp);
-  }
-  const [timeStamp, setTimeStamp] = useState<number>(0);
-  
- 
-  
-  const [rooms, setRooms] = useState<Array<IRoom>>([]);
-  const [owner, setOwner] = useState<string>("");
-  
-  let pubkey: string[];
+  const [hotels, setHotels] = useState<Array<IHotelContract>>([]);
 
   const connectWithMetamask = async () => {
     try {
       pubkey = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-
-      console.log(pubkey[0]);
-    } catch (err) {
-      // { code: 4001, message: 'User rejected the request.' }
-    }
+    } catch (err) {}
   };
-  connectWithMetamask();
+  
 
-  function checkHotelStatus(): void {
+  function getHotels(): void {
     myContractInstance.methods
-      .hotelStatus()
+      .returnHotels()
       .call()
-      .then((e: Array<IRoom>) => {
-        getTimeStamp().then(e => {setTimeStamp(e)});
-        console.log(6,timeStamp)
-        setRooms(
-          e.map(
-            ({ daysBooked, nameBooking, roomNumber, status, bookedTime }) => {
-              return {
-                daysBooked,
-                nameBooking,
-                roomNumber,
-                status,
-                bookedTime,
-              };
-            }
-          )
-        );
-      });
-    console.log(1, rooms);
-  }
-
-  function getOwner(): void {
-    myContractInstance.methods
-      .owner()
-      .call()
-      .then((e: string) => {
-        setOwner(e);
+      .then((e: IHotelContract[]) => {
+        setHotels(e);
       });
   }
-
 
   useEffect(() => {
-    checkHotelStatus();
-    getOwner();
+    connectWithMetamask();
+    getHotels();
   }, []);
+
   return (
-    <div className="flex flex-col justify-center items-center">
-      
-      <button className="bg-green-100" onClick={checkHotelStatus}>
-        Update hotel status
-      </button>
-    
-      
-      <Rooms rooms={rooms} owner={owner} currentTime={timeStamp}/>
+    <div className="flex flex-col items-center justify-center">
+      <table className="table text-sm text-gray-400 border-separate rounded-full">
+        <thead className="text-white bg-maticColor">
+          <tr>
+            <th className="p-3">Name</th>
+            <th className="p-3">Number of rooms</th>
+            <th className="p-3">Contract address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {hotels.map((hotel) => {
+            return (
+              <>
+                <tr className="bg-indigo-200 lg:text-black">
+                  <td className="p-1 text-center">{hotel.hotel.hotelName}</td>
+                  <td className="p-1 text-center">{hotel.hotel.roomNumbers}</td>
+                  <td className="p-1 text-center">{hotel.hotelContract}</td>
+                </tr>
+              </>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };

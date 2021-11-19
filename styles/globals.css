@@ -1,21 +1,38 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.xxl-shadow{
-  box-shadow: rgb(179 165 209 / 35%) 0px 2px 6px, rgb(179 165 209 / 35%) 0px 4px 40px;
+.table {
+  border-spacing: 0 15px;
+}
+
+
+.table tr {
+  border-radius: 20px;
+}
+
+
+tr th:nth-child(3),td:nth-child(3) {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+tr th:nth-child(1),td:nth-child(1) {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
+.xxl-shadow {
+  box-shadow: rgb(179 165 209 / 35%) 0px 2px 6px,
+    rgb(179 165 209 / 35%) 0px 4px 40px;
 }
 
 @layer components {
-  *{
+  * {
     @apply font-ShipporiAntique;
   }
 
-  
   .sidebar-icon {
     @apply relative flex items-center justify-center h-12 w-12 mt-4
      mx-auto shadow-lg bg-gray-800 text-indigo-400

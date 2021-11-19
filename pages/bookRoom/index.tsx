@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import { contractAddress } from "../../contracts/contract";
+import { Master } from "../../contracts/contract";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import ABI from "../../contracts/ABI.json";
+import ABI from "../../contracts/HotelBooking_ABI.json";
 import { IRoom } from "../../types";
 declare const window: any;
 
@@ -15,7 +15,7 @@ const web3 = new Web3(provider);
 
 const myContractInstance = new web3.eth.Contract(
   ABI as AbiItem[],
-  contractAddress
+  "0x44DE104f73d5FEC7b4fd14873b4cBF49E07cfcC5"
 );
 
 const Home: NextPage = () => {
@@ -71,10 +71,10 @@ const Home: NextPage = () => {
   async function bookRoom() {
     const web3 = new Web3(window.ethereum);
     const transactionParameters = {
-      to: contractAddress, // Required except during contract publications.
+      to: "0x44DE104f73d5FEC7b4fd14873b4cBF49E07cfcC5", // Required except during contract publications.
       from: pubkey[0], // must match user's active address.
       value: String(1e17 * days), // wei
-      data: myContractInstance.methods.bookRoom(owner, days).encodeABI(),
+      data: myContractInstance.methods.bookRoom(pubkey[0], days).encodeABI(),
     };
 
     await web3.eth
