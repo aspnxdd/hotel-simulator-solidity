@@ -9,7 +9,8 @@ export interface IRoom {
 export interface IHotel {
   rooms: IRoom[];
   owner: string;
-  currentTime: number
+  currentTime: number;
+  hotelName: string;
 }
 
 export interface IHotelContract {

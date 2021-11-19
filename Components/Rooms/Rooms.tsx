@@ -1,13 +1,15 @@
 import React from "react";
-import { Hotel, Room, Owner,Label,RoomNumber,DaysBooked,Address,Time } from "./RoomsElements";
+import { Hotel, Room, Owner,Label,RoomNumber,DaysBooked,Address,Time,HotelArea,HotelName } from "./RoomsElements";
 import {IHotel } from "../../types"
 
 const empty:string = ""
 
-export const Rooms = ({ rooms, owner, currentTime }: IHotel) => {
+export const Rooms = ({ rooms, owner, currentTime,hotelName }: IHotel) => {
   return (
     <div className="flex flex-col align-middle">
       <Owner>Owner: {owner.substring(0,6)}...{owner.substring(39,42)}</Owner>
+      <HotelArea>
+      <HotelName>🌟{hotelName}🌟</HotelName>
       <Hotel>
         {rooms.map((room) => {
           return (
@@ -22,7 +24,8 @@ export const Rooms = ({ rooms, owner, currentTime }: IHotel) => {
             </Room>
           );
         })}
-      </Hotel>
+    </Hotel>
+      </HotelArea>
     </div>
   );
 };

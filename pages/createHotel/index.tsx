@@ -1,8 +1,8 @@
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
 import ABI from "../../contracts/Master_ABI.json";
-import { useRef, useEffect } from "react";
-import { IHotelContract } from "../../types";
+import { useEffect } from "react";
+
 declare const window: any;
 import { Master } from "../../contracts/contract";
 import React from "react";
@@ -20,16 +20,12 @@ const myContractInstance = new web3.eth.Contract(ABI as AbiItem[], Master);
 
 let pubkey: string[];
 const CreateHotel = () => {
-  const roomsNumber = useRef<HTMLInputElement>(null);
-
   const connectWithMetamask = async () => {
     const web3 = new Web3(window.ethereum);
     try {
       pubkey = await web3.eth.requestAccounts();
-
-      console.log(12, pubkey[0]);
     } catch (err) {
-      // { code: 4001, message: 'User rejected the request.' }
+      console.error(err);
     }
   };
 
@@ -39,14 +35,11 @@ const CreateHotel = () => {
       roomsNumber: 9,
     },
     onSubmit: () => {
-      if (formik.values.roomsNumber < 1) {
-        
-        return;
-      }
-
+      if (formik.values.roomsNumber < 1) return;
       createHotel();
     },
   });
+
   async function createHotel() {
     const web3 = new Web3(window.ethereum);
     console.log(1, pubkey);
@@ -82,11 +75,11 @@ const CreateHotel = () => {
           id="hotelName"
           name="hotelName"
           type="text"
-          ref={roomsNumber}
           onChange={formik.handleChange}
           value={formik.values.hotelName}
           className="mb-4 text-center border-4 outline-none rounded-2xl border-maticColor"
           placeholder="My Hotel"
+          required
         />
 
         <label htmlFor="roomsNumber">Rooms number </label>
@@ -96,6 +89,7 @@ const CreateHotel = () => {
           type="number"
           onChange={formik.handleChange}
           value={formik.values.roomsNumber}
+          min="1"
           className="text-center border-4 outline-none rounded-2xl border-maticColor"
         />
 

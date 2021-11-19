@@ -2,41 +2,44 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
- struct Hotel{
+struct Hotel{
         string hotelName;
         uint roomNumbers;
-    }
+}
     
-     struct HotelContract{
+struct HotelContract{
         Hotel hotel;
         address hotelContract;
-    }
+}
 
 contract Master{
-    
+   address payable public masterOwner;
+    // info of the hotels on the blockchain
     HotelContract[] public hotels;
-
-   
     
-    function createHotel(string memory _hotelName, uint _roomNumbers) public returns(address){
+    // fee to create Hotel to masterOwner
+    constructor() {
+        masterOwner=payable(0x14B3D1D05D90E7Bb9EF9847E92cA11DbA10D1fcB);
+    }
+    // function to create new hotels
+    function createHotel(string memory _hotelName, uint _roomNumbers) public payable returns(address){
+        require(msg.value > 1,"pay!!");
        address hotelContract  = address(new HotelBooking(_roomNumbers,msg.sender));
        hotels.push(HotelContract(Hotel(_hotelName,_roomNumbers),hotelContract));
+       masterOwner.transfer(msg.value);
        return hotelContract;
    }
    
+   // function to return all the hotels array
    function returnHotels() public view  returns(HotelContract[] memory) {
        return hotels;
    }
-   
 }
 
 contract HotelBooking {
     
-    
-   
     uint[] public roomNumbers;
    
-    //better use array if mapping's key is a uint
     Room[] public rooms ;
    
     enum Statuses { Free, Occupied }
@@ -63,7 +66,7 @@ contract HotelBooking {
     //payable makes it that it can transfer/send eth
     address payable public owner;
    
-    constructor(uint _roomNumber,address _owner) {
+    constructor(uint _roomNumber,address _owner) payable{
         owner = payable(_owner);
         // set how many rooms per hotel
         for(uint i=0;i<_roomNumber;i++){
@@ -91,14 +94,14 @@ contract HotelBooking {
         return 0;
     }
    
-    function bookRoom(address _address, uint _daysBooked) public payable returns (uint){
+    function bookRoom(uint _daysBooked) public payable returns (uint){
         require(msg.value > 1,"pay!!");
         refreshRoomsStatus();
         uint _roomNumber = checkFreeRoom();
        
         require(_roomNumber > 0, "No available rooms");
        
-        rooms[_roomNumber-1] = Room( _daysBooked, Statuses.Occupied, _address, _roomNumber, block.timestamp);
+        rooms[_roomNumber-1] = Room( _daysBooked, Statuses.Occupied, msg.sender, _roomNumber, block.timestamp);
         room = _roomNumber;
         owner.transfer(msg.value);
         emit Occupy(msg.sender, msg.value,room );

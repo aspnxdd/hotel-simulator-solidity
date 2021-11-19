@@ -91,14 +91,14 @@ const Home: NextPage = () => {
     getOwner();
   }, []);
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
       
       <button className="bg-green-100" onClick={checkHotelStatus}>
         Update hotel status
       </button>
     
       
-      <Rooms rooms={rooms} owner={owner} currentTime={timeStamp}/>
+      {/* <Rooms rooms={rooms} owner={owner} currentTime={timeStamp}/> */}
     </div>
   );
 };
