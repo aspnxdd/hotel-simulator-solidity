@@ -29,7 +29,7 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
 };
 
 const SideBarIconA = ({ icon, tooltip, href, as }: { icon: ReactElement,tooltip?:string, href:string,as?:string }) => (
-  <div className={tooltip=="Info" ? "sidebar-icon-bottom group ":"sidebar-icon group"}>
+  <div className="{{tooltip=='Info' ? 'sidebar-icon-bottom group' : 'sidebar-icon group'}}">
       <Link href={href} as={as}>
         <a>
           {icon}
