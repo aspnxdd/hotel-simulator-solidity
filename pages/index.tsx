@@ -21,14 +21,14 @@ const myContractInstance = new web3.eth.Contract(ABI as AbiItem[], Master);
 
 const Home: NextPage = () => {
   const [hotels, setHotels] = useState<Array<IHotelContract>>([]);
-  const [pubkey, setPubkey] = useState<string>("")
+
 
   const connectWithMetamask = async () => {
     try {
-      const _pubkey = await window.ethereum.request({
+      await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      setPubkey(_pubkey)
+    
     } catch (err) {}
   };
   
@@ -49,10 +49,13 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <table className="table text-sm text-gray-400 border-separate rounded-full">
+       <h1 className="text-6xl font-bold text-gray-700 drop-shadow-2xl text-center">Hotel simulator</h1>
+       <hr className="w-4/12 mt-4 mb-2 border-t" />
+       <h1 className="text-base italic text-gray-400 drop-shadow-2xl -ml-24">Built on the Matic (Polygon) testnet (Mumbai)</h1>
+      <table className="table text-sm text-gray-400 border-separate rounded-full mt-6">
         <thead className="text-white bg-maticColor">
           <tr>
-            <th className="p-3">Name</th>
+            <th className="p-3">Hotel name</th>
             <th className="p-3">Number of rooms</th>
             <th className="p-3">Contract address</th>
             <th className="p-3">Link</th>

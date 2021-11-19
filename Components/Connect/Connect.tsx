@@ -45,9 +45,9 @@ useEffect(() => {
 
   return (
     <div className="connect-div">
-      <button className="text-2xl m-2 -mr-4 p-2 right-0 text-maticColor  border-maticColor border-4 rounded-3xl scale-75 hover:bg-maticColor hover:text-white transition-all ease-linear duration-100" onClick={connectWithMetamask}>
+      {connect && <button className="text-2xl m-2 -mr-4 p-2 right-0 text-maticColor  border-maticColor border-4 rounded-3xl scale-75 hover:bg-maticColor hover:text-white transition-all ease-linear duration-100" onClick={connectWithMetamask}>
         {chainId=="" ? "Wrong Network" : chainId}
-      </button>
+      </button>}
 
       <button className="text-white text-2xl m-2 p-3 right-0 bg-maticColor  rounded-3xl scale-75 hover:bg-maticColorHover transition-all ease-linear duration-100" onClick={connectWithMetamask}>
         {connect == "" ? "Connect" : `${connect.substring(0,6)}...${connect.substring(39,42)}`}

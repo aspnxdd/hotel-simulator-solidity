@@ -76,6 +76,7 @@ const CreateHotel = () => {
   }, []);
 
   return (
+   
     <form
       className="flex flex-col items-center "
       onSubmit={formik.handleSubmit}
@@ -93,7 +94,7 @@ const CreateHotel = () => {
           required
         />
 
-        <label htmlFor="roomsNumber">Rooms number </label>
+        <label htmlFor="roomsNumber">Number of rooms </label>
         <input
           id="roomsNumber"
           name="roomsNumber"
