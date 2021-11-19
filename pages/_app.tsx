@@ -1,5 +1,5 @@
-import "../styles/globals.css";
-import "tailwindcss/tailwind.css";
+import "../styles/tailwind.css";
+// import "tailwindcss/tailwind.css";
 import { SideBar } from "../Components/Sidebar/Sidebar";
 import { Connect } from "../Components/Connect/Connect";
 import type { AppProps } from "next/app";
