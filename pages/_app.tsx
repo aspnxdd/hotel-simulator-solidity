@@ -1,15 +1,21 @@
 import "../styles/tailwind.css";
-// import "tailwindcss/tailwind.css";
 import { SideBar } from "../Components/Sidebar/Sidebar";
 import { Connect } from "../Components/Connect/Connect";
+import { RecoilRoot } from "recoil";
+
+
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  
+
   return (
     <>
-      <SideBar />
-      <Connect />
-      <Component {...pageProps}></Component>
+      <RecoilRoot>
+        <SideBar />
+        <Connect />
+        <Component {...pageProps}></Component>
+      </RecoilRoot>
     </>
   );
 }

@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { Rooms } from "../../../Components/Rooms/Rooms";
 import { IRoom } from "../../../types";
 import { Contract } from "web3-eth-contract";
-import Link from "next/link"
+import Link from "next/link";
 declare const window: any;
 
 // Declare matic mumbai provider
@@ -18,7 +18,7 @@ const web3 = new Web3(provider);
 
 const Hotel: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query
+  const { id } = router.query;
   const [myContractInstance, setMyContractInstance] = useState<Contract | null>(
     null
   );
@@ -26,7 +26,7 @@ const Hotel: NextPage = () => {
   const [timeStamp, setTimeStamp] = useState<number>(0);
   const [rooms, setRooms] = useState<Array<IRoom>>([]);
   const [owner, setOwner] = useState<string>("");
-  const [hotelName, setHotelName] = useState<string>("")
+  const [hotelName, setHotelName] = useState<string>("");
 
   function getHotel(id: string[] | string) {
     if (Array.isArray(id)) return;
@@ -34,11 +34,9 @@ const Hotel: NextPage = () => {
     const [_contractAddress, ..._hotelName] = idSpread;
     setContractAddress(_contractAddress);
     setHotelName(_hotelName.join("-"));
-    
   }
   useEffect(() => {
     if (router.query.id) {
-      
       getHotel(router.query.id);
     }
   }, [router.query.id]);
@@ -50,23 +48,19 @@ const Hotel: NextPage = () => {
     );
   }, [contractAddress]);
 
-
-
   async function getTimeStamp() {
     const blockNumber: number = await web3.eth.getBlockNumber();
     const timeStamp = (await web3.eth.getBlock(blockNumber)).timestamp;
     return Number(timeStamp);
   }
-  
-const connectWithMetamask = async () => {
+
+  const connectWithMetamask = async () => {
     try {
       await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-    
-      
     } catch (err) {
-      // { code: 4001, message: 'User rejected the request.' }
+      console.error(err);
     }
   };
   connectWithMetamask();
@@ -80,7 +74,6 @@ const connectWithMetamask = async () => {
           getTimeStamp().then((a) => {
             setTimeStamp(a);
           });
-          console.log(6, timeStamp);
           setRooms(
             e.map(
               ({ daysBooked, nameBooking, roomNumber, status, bookedTime }) => {
@@ -96,7 +89,6 @@ const connectWithMetamask = async () => {
           );
         });
     }
-    console.log(1, rooms);
   }
 
   function getOwner(): void {
@@ -117,16 +109,17 @@ const connectWithMetamask = async () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {/* <button className="bg-green-100" onClick={checkHotelStatus}>
-        Update hotel status
-      </button> */}
       <Link href="/hotels/[id]/[bookroom]" as={`/hotels/${id}/bookroom`}>
         <a className="p-2 transition-all duration-100 ease-linear rounded-xl bg-maticColorHover hover:scale-105">
-        Book a room
+          Book a room
         </a>
       </Link>
-      <Rooms rooms={rooms} hotelName={hotelName} owner={owner} currentTime={timeStamp} />
-      
+      <Rooms
+        rooms={rooms}
+        hotelName={hotelName}
+        owner={owner}
+        currentTime={timeStamp}
+      />
     </div>
   );
 };

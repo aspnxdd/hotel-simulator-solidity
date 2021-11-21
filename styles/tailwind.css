@@ -28,6 +28,8 @@ td:nth-child(1) {
     rgb(179 165 209 / 35%) 0px 4px 40px;
 }
 
+
+
 .lds-hourglass {
   display: inline-block;
   position: relative;
@@ -60,6 +62,24 @@ td:nth-child(1) {
   }
 }
 
+.animation-box-left {
+  animation-duration: 3s;
+  animation-name: appear;
+  animation-iteration-count: 1;
+}
+
+@keyframes appear {
+  from {
+    transform: translateX(50%);
+    opacity:0%;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity:100%;
+  }
+}
+
 @layer components {
   * {
     @apply font-ShipporiAntique;
@@ -79,7 +99,7 @@ td:nth-child(1) {
   .sidebar-tooltip {
     @apply absolute w-auto p-2 m-2 text-xs font-bold text-white transition-all duration-100 origin-left scale-0 bg-gray-800 rounded-md shadow-md min-w-max left-14;
   }
-  .connect-div{
+  .connect-div {
     @apply flex justify-end mr-6;
   }
 }

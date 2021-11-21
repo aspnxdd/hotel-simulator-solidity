@@ -1,12 +1,14 @@
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
 import ABI from "../../contracts/Master_ABI.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 declare const window: any;
 import { Master } from "../../contracts/contract";
 import React from "react";
 import { useFormik } from "formik";
+import { pubkeyState } from "../../Components/states";
+import { useRecoilState } from "recoil";
 
 // Declare matic mumbai provider
 const NODE_URL =
@@ -23,16 +25,8 @@ const CreateHotel = () => {
   const [successfulCreation, setSuccessfulCreation] = useState<string | null>(
     null
   );
-  const [pubkey, setPubkey] = useState<string>("");
-  const connectWithMetamask = async () => {
-    const web3 = new Web3(window.ethereum);
-    try {
-      const _pubkey = await web3.eth.requestAccounts();
-      setPubkey(_pubkey[0]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const [pubkey, setPubkey] = useRecoilState(pubkeyState);
+
 
   const formik = useFormik({
     initialValues: {
@@ -71,9 +65,6 @@ const CreateHotel = () => {
     });
   }
 
-  useEffect(() => {
-    connectWithMetamask();
-  }, []);
 
   return (
    

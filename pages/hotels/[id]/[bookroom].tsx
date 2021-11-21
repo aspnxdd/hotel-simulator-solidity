@@ -7,6 +7,8 @@ import { IRoom } from "../../../types";
 import { Contract } from "web3-eth-contract";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { pubkeyState } from "../../../Components/states";
+import { useRecoilState } from "recoil";
 declare const window: any;
 
 // Declare matic mumbai provider
@@ -16,11 +18,6 @@ const provider = new Web3.providers.HttpProvider(NODE_URL);
 const web3 = new Web3(provider);
 
 const Home: NextPage = () => {
-
-
-    
- 
- 
   const router = useRouter();
   const [days, setDays] = useState<number>(1);
   const [rooms, setRooms] = useState<Array<IRoom>>([]);
@@ -29,7 +26,7 @@ const Home: NextPage = () => {
     null
   );
   const [contractAddress, setContractAddress] = useState<string | null>(null);
-  const [pubkey, setPubkey] = useState<string>("");
+  const [pubkey, setPubkey] = useRecoilState(pubkeyState);
   const [loader, setLoader] = useState<boolean>(false);
   const [succesfulBooked, setSuccesfulBooked] = useState<string | null>(null);
 
@@ -60,21 +57,6 @@ const Home: NextPage = () => {
     checkHotelStatus();
     getOwner();
   }, [myContractInstance]);
-
-  const connectWithMetamask = async () => {
-    if(typeof window !== "undefined"){
-
-      const web3 = new Web3(window.ethereum);
-      try {
-        const _pubkey = await web3.eth.requestAccounts();
-        setPubkey(_pubkey[0]);
-      } catch (err) {
-        // { code: 4001, message: 'User rejected the request.' }
-      }
-    }
-  };
-
-  connectWithMetamask();
 
   function checkHotelStatus(): void {
     if (myContractInstance) {
@@ -114,7 +96,7 @@ const Home: NextPage = () => {
   async function bookRoom() {
     if (myContractInstance && contractAddress && window) {
       setLoader(true);
-      setSuccesfulBooked("")
+      setSuccesfulBooked("");
       console.log(pubkey);
       const web3 = new Web3(window.ethereum);
       const transactionParameters = {
@@ -124,20 +106,22 @@ const Home: NextPage = () => {
         data: myContractInstance.methods.bookRoom(days).encodeABI(),
       };
 
-      await web3.eth.sendTransaction(transactionParameters).then((e: any) => {
-        setLoader(false);
-        setSuccesfulBooked(e.transactionHash);
-        console.log(15, e);
-      }).catch(err=>{
-        
-        if(err.code===4001) setLoader(false);
-      });;
+      await web3.eth
+        .sendTransaction(transactionParameters)
+        .then((e: any) => {
+          setLoader(false);
+          setSuccesfulBooked(e.transactionHash);
+          console.log(15, e);
+        })
+        .catch((err) => {
+          if (err.code === 4001) setLoader(false);
+        });
     }
   }
 
   return (
     <div className="flex flex-col items-center justify-center">
-        Free rooms:{" "}
+      Free rooms:{" "}
       <div className="flex flex-row flex-wrap items-center mx-72">
         {rooms.map((e) => {
           if (e.status == "0")
@@ -158,7 +142,6 @@ const Home: NextPage = () => {
       >
         Book now
       </button>
-
       {loader && <div className="lds-hourglass w-auto mt-2"></div>}
       {succesfulBooked && (
         <h1 className="mt-4">
