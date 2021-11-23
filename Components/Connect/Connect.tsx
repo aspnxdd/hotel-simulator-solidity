@@ -32,7 +32,7 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
       chainListId.forEach((e: any) => {
         if (e.chainId === chainId && chainId == 80001) setChainId(e.name);
       });
-      console.log(55,chainId,pubkey)
+      console.log(55, chainId, pubkey);
     } catch (err) {
       // { code: 4001, message: 'User rejected the request.' }
     }
@@ -57,7 +57,7 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
       )}
 
       <button
-        className="text-white text-2xl m-2 p-3 right-0 bg-maticColor  rounded-3xl hover:bg-maticColorHover transition-all ease-linear duration-100"
+        className="text-white text-2xl m-2 p-3 right-0 bg-maticColor rounded-3xl hover:bg-maticColorHover transition-all ease-linear duration-100"
         onClick={connectWithMetamask}
       >
         {pubkey == ""

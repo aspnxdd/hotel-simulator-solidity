@@ -93,6 +93,7 @@ const CreateHotel = () => {
           onChange={formik.handleChange}
           value={formik.values.roomsNumber}
           min="1"
+          pattern="\d*"
           className="text-center border-4 outline-none rounded-2xl border-maticColor"
         />
 
