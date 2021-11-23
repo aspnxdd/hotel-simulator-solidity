@@ -3,16 +3,16 @@ import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="text-6xl font-bold text-gray-700 drop-shadow-2xl text-center">
+    <div className="flex flex-col items-center justify-center md:w-auto overflow-x-hidden">
+      <h1 className="text-6xl font-bold text-gray-700 drop-shadow-2xl text-center md:text-indigo-300">
         Hotel simulator
       </h1>
 
-      <hr className="w-4/12 mt-4 mb-2 border-t" />
-      <h1 className="text-base italic text-gray-400 drop-shadow-2xl -ml-24">
+      <hr className="w-4/12 mt-4 mb-2 border-t md:w-auto" />
+      <h1 className="text-base italic text-gray-400 drop-shadow-2xl -ml-24 md:w-auto">
         Built on the Matic (Polygon) testnet (Mumbai)
       </h1>
-      <div className="flex items-center justify-center animation-box-left space-x-32">
+      <div className="flex items-center justify-center animation-box-left space-x-32 md:w-auto">
         <Link href="/createHotel">
           <a>
             <div className="rounded-2xl  w-[18rem] h-44 m-3 p-4 border-gray-200 border-[1px] hover:shadow-lg hover:border-opacity-0 transition-all duration-300 ease-in-out">
