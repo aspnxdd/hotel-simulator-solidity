@@ -3,12 +3,13 @@ module.exports = {
   purge: {
     content: ['./components/**/*.tsx', './pages/**/*.tsx'],
     safelist: [
-      'sidebar-icon ',
+      'sidebar-icon',
       'sidebar-icon-bottom',
       'sidebar-tooltip',
       'sidebar',
       'connect-div',
-      'group'
+      'group',
+      'span-sidebar-tooltip'
     ]
   },
   mode: "jit",

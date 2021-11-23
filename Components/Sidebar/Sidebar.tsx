@@ -54,6 +54,6 @@ const SideBarIconA = ({
     <Link href={href} as={as}>
       <a>{icon}</a>
     </Link>
-    <span className="sidebar-tooltip group-hover:scale-100">{tooltip}</span>
+    <span className="span-sidebar-tooltip">{tooltip}</span>
   </div>
 );
