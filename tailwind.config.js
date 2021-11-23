@@ -7,7 +7,8 @@ module.exports = {
       'sidebar-icon-bottom',
       'sidebar-tooltip',
       'sidebar',
-      'connect-div'
+      'connect-div',
+      'group'
     ]
   },
   mode: "jit",
