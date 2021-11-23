@@ -4,19 +4,19 @@ import Link from "next/link";
 const Home: NextPage = () => {
   return (
     <div className="flex flex-col items-center justify-center overflow-x-hidden">
-      <h1 className="text-4xl font-bold -mr-20 text-indigo-400 drop-shadow-2xl text-center md:text-6xl md:-mr-0">
+      <h1 className="-mr-20 text-4xl font-bold text-center text-indigo-400 drop-shadow-2xl md:text-6xl md:-mr-0">
         Hotel simulator
       </h1>
 
       <hr className="w-4/12 mt-4 mb-2 border-t md:w-auto" />
-      <h1 className="text-base italic text-gray-400 drop-shadow-2xl ml-24 md:-ml-24">
+      <h1 className="ml-24 text-base italic text-gray-400 drop-shadow-2xl md:-ml-24">
         Built on the Matic (Polygon) testnet (Mumbai)
       </h1>
-      <div className="flex items-center justify-center animation-box-left space-x-32 md:w-auto">
+      <div className="flex items-center justify-center space-x-32 animation-box-left md:w-auto">
         <Link href="/createHotel">
           <a>
             <div className="rounded-2xl  w-[18rem] h-44 m-3 p-4 border-gray-200 border-[1px] hover:shadow-lg hover:border-opacity-0 transition-all duration-300 ease-in-out">
-              <h1 className="font-bold mb-2">Become an hotel owner now!</h1>
+              <h1 className="mb-2 font-bold">Become an hotel owner now!</h1>
               <hr className="border-[1px] border-maticColor mb-2" />
               Add your hotel and book your rooms through Smart contracts on the
               Polygon Testnet.
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         <Link href="/hotelslist">
           <a>
             <div className="rounded-2xl  w-[18rem] h-44 m-3 p-4 border-gray-200 border-[1px] hover:shadow-lg hover:border-opacity-0 transition-all duration-300 ease-in-out">
-              <h1 className="font-bold mb-2">Check every hotel status</h1>
+              <h1 className="mb-2 font-bold">Check every hotel status</h1>
               <hr className="border-[1px] border-maticColor mb-2" />
               Through smart contracts you can check every hotel availability.
             </div>
