@@ -19,7 +19,6 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
     "https://chainid.network/chains.json",
     fetcher
   );
-  // console.log(1,chainListId)
 
   const connectWithMetamask = async () => {
     let chainId: number;
@@ -34,7 +33,7 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
       });
       console.log(55, chainId, pubkey);
     } catch (err) {
-      // { code: 4001, message: 'User rejected the request.' }
+      console.error(err);
     }
   };
 

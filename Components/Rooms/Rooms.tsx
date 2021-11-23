@@ -10,7 +10,7 @@ export const Rooms = ({ rooms, owner, currentTime,hotelName }: IHotel) => {
       <Owner>Owner: {owner.substring(0,6)}...{owner.substring(39,42)}</Owner>
       <HotelArea>
       <HotelName>🌟{hotelName}🌟</HotelName>
-      <Hotel>
+        <Hotel>
         {rooms.map((room) => {
           return (
             <Room status={room.status} key={Number(room.roomNumber)} >
@@ -24,8 +24,9 @@ export const Rooms = ({ rooms, owner, currentTime,hotelName }: IHotel) => {
             </Room>
           );
         })}
-    </Hotel>
+        </Hotel>
       </HotelArea>
+      
     </div>
   );
 };
