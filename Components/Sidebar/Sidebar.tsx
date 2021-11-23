@@ -30,7 +30,7 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
           as={`/hotels/${id}/bookroom`}
         />
       )}
-      <SideBarIconA icon={<FiInfo size="28" />} tooltip="Info" href="/" />
+      <SideBarIconA icon={<FiInfo size="28" />} tooltip="Info" href="https://arnauespin.gitbook.io/hotel-room-booking/" />
     </div>
   );
 };

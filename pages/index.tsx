@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -11,16 +12,26 @@ const Home: NextPage = () => {
       <h1 className="text-base italic text-gray-400 drop-shadow-2xl -ml-24">
         Built on the Matic (Polygon) testnet (Mumbai)
       </h1>
-      <div className="flex items-center justify-center animation-box-left">
-        <div className="border-2 rounded-2xl border-maticColor w-64 h-44 m-3 p-4 ">
-          <h1 className="font-bold mb-2">Become an hotel owner now!</h1>
-          Add your hotel and book your rooms through Smart contracts on the
-          Polygon Testnet.
-        </div>
-        <div className="border-2 rounded-2xl border-maticColor w-64 h-44 m-3 p-4 ">
-          <h1 className="font-bold mb-2">Check every hotel state</h1>
-          Through smart contracts you can check every hotel availability.
-        </div>
+      <div className="flex items-center justify-center animation-box-left space-x-32">
+        <Link href="/createHotel">
+          <a>
+            <div className="rounded-2xl  w-[18rem] h-44 m-3 p-4 border-gray-200 border-[1px] hover:shadow-lg hover:border-opacity-0 transition-all duration-300 ease-in-out">
+              <h1 className="font-bold mb-2">Become an hotel owner now!</h1>
+              <hr className="border-[1px] border-maticColor mb-2" />
+              Add your hotel and book your rooms through Smart contracts on the
+              Polygon Testnet.
+            </div>
+          </a>
+        </Link>
+        <Link href="/hotelslist">
+          <a>
+            <div className="rounded-2xl  w-[18rem] h-44 m-3 p-4 border-gray-200 border-[1px] hover:shadow-lg hover:border-opacity-0 transition-all duration-300 ease-in-out">
+              <h1 className="font-bold mb-2">Check every hotel status</h1>
+              <hr className="border-[1px] border-maticColor mb-2" />
+              Through smart contracts you can check every hotel availability.
+            </div>
+          </a>
+        </Link>
       </div>
       <p className="w-2/4 mt-14">
         Welcome to the Hotel Simulator built on the polygon testnet blockchain.
