@@ -105,7 +105,7 @@ td:nth-child(1) {
     @apply absolute w-auto p-2 m-2 text-xs font-bold text-white transition-all duration-100 origin-left scale-0 bg-gray-800 rounded-md shadow-md min-w-max left-14;
   }
   .connect-div {
-    @apply flex justify-end mr-0 scale-90 md:scale-75;
+    @apply flex justify-end -mr-16 scale-75 md:scale-90;
   }
   .span-sidebar-tooltip {
     @apply sidebar-tooltip group-hover:scale-100;
