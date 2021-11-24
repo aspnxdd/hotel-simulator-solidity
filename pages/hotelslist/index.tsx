@@ -34,7 +34,7 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col scale-50 ml-4 items-center justify-center">
       <table className="table text-sm text-gray-400 border-separate rounded-full mt-6">
         <thead className="text-white bg-maticColor">
           <tr>

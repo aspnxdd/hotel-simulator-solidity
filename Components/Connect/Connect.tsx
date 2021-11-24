@@ -45,7 +45,7 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
   });
 
   return (
-    <div className="connect-div md:w-auto">
+    <div className="connect-div w-12/12 space-x-6">
       {pubkey && (
         <button
           className="right-0 p-2 m-2 -mr-4 text-2xl transition-all duration-100 ease-linear border-4 md:mr-0 text-maticColor border-maticColor rounded-3xl hover:bg-maticColor hover:text-white"
