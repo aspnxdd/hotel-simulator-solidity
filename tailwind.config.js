@@ -1,5 +1,4 @@
 module.exports = {
-
   purge: {
     content: ['./components/**/*.tsx', './pages/**/*.tsx'],
     safelist: [
@@ -12,7 +11,7 @@ module.exports = {
       'span-sidebar-tooltip'
     ]
   },
-  // mode: "jit",
+  mode: "jit",
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
