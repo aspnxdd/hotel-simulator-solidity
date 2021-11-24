@@ -1,6 +1,17 @@
 module.exports = {
 
-  purge: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  purge: {
+    content: ['./components/**/*.tsx', './pages/**/*.tsx'],
+    safelist: [
+      'sidebar-icon',
+      'sidebar-icon-bottom',
+      'sidebar-tooltip',
+      'sidebar',
+      'connect-div',
+      'group',
+      'span-sidebar-tooltip'
+    ]
+  },
   mode: "jit",
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -17,10 +28,7 @@ module.exports = {
     },
   },
   variants: {
-    extend: {
-      backgroundColor: ['checked'],
-      borderColor: ['checked'],
-    },
+    extend: {},
   },
   plugins: [],
 }
