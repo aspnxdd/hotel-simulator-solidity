@@ -1,13 +1,17 @@
 import { PropsWithChildren, ReactElement } from "react";
-import { FiBook, FiHome, FiInfo, FiPlusSquare } from "react-icons/fi";
+import { FiBook, FiHome, FiInfo, FiPlusSquare,FiDatabase } from "react-icons/fi";
 import { BsBuilding } from "react-icons/bs";
 import Link from "next/link";
+import { pubkeyState } from "../../Components/states";
+import { useRecoilState } from "recoil";
 
 import { useRouter } from "next/router";
 
 export const SideBar = ({ children }: PropsWithChildren<any>) => {
   const router = useRouter();
   const { id } = router.query;
+  const [pubkey, setPubkey] = useRecoilState(pubkeyState);
+
 
   return (
     <div className="sidebar">
@@ -22,6 +26,14 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
         tooltip="Create your own hotel"
         href="/createHotel"
       />
+       {pubkey && (
+        <SideBarIconA
+          icon={<FiDatabase size="28" />}
+          tooltip="My hotels"
+          href="/myhotels"
+          
+        />
+      )}
       {id && (
         <SideBarIconA
           icon={<FiBook size="28" />}

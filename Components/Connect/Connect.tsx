@@ -25,13 +25,14 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
     const web3 = new Web3(window.ethereum);
     try {
       await web3.eth.requestAccounts().then((res) => {
+        
         setPubkey(res[0]);
+        // console.log("pubkey", pubkey);
       });
       chainId = await web3.eth.getChainId();
-      chainListId.forEach((e: any) => {
+      chainListId?.forEach((e: any) => {
         if (e.chainId === chainId && chainId == 80001) setChainId(e.name);
       });
-      console.log(55, chainId, pubkey);
     } catch (err) {
       console.error(err);
     }
@@ -39,6 +40,7 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
 
   useEffect(() => {
     if (window.ethereum) {
+      
       connectWithMetamask();
       window.ethereum.on("accountsChanged", connectWithMetamask);
     }

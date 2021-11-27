@@ -5,6 +5,7 @@ pragma solidity >=0.7.0 <0.9.0;
 struct Hotel {
     string hotelName;
     uint256 roomNumbers;
+    address hotelOwner;
 }
 
 struct HotelContract {
@@ -14,19 +15,21 @@ struct HotelContract {
 
 contract Master {
     HotelContract[] public hotels;
+    address payable masterOwner;
+    
 
-    function createHotel(string memory _hotelName, uint256 _roomNumbers)
-        public
-        returns (address)
-    {
-        address hotelContract = address(
-            new HotelBooking(_roomNumbers, msg.sender)
-        );
-        hotels.push(
-            HotelContract(Hotel(_hotelName, _roomNumbers), hotelContract)
-        );
-        return hotelContract;
+    constructor() {
+        masterOwner=payable(0x14B3D1D05D90E7Bb9EF9847E92cA11DbA10D1fcB);
     }
+
+    // function to create new hotels
+    function createHotel(string memory _hotelName, uint _roomNumbers) public payable returns(address){
+    require(msg.value > 1,"pay!!");
+       address hotelContract  = address(new HotelBooking(_roomNumbers,msg.sender));
+       hotels.push(HotelContract(Hotel(_hotelName,_roomNumbers,msg.sender),hotelContract));
+       masterOwner.transfer(msg.value);
+       return hotelContract;
+   }
 
     function returnHotels() public view returns (HotelContract[] memory) {
         return hotels;
@@ -102,7 +105,7 @@ contract HotelBooking {
     }
 
     //
-    function bookRoom(address _address, uint256 _daysBooked)
+    function bookRoom(uint256 _daysBooked)
         public
         payable
         returns (uint256)
@@ -116,7 +119,7 @@ contract HotelBooking {
         rooms[_roomNumber - 1] = Room(
             _daysBooked,
             Statuses.Occupied,
-            _address,
+            msg.sender,
             _roomNumber,
             block.timestamp
         );

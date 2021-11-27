@@ -12,7 +12,7 @@
 				"type": "address"
 			}
 		],
-		"stateMutability": "payable",
+		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
 	{

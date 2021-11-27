@@ -1,9 +1,9 @@
 export interface IRoom {
+  bookedTime: String;
   daysBooked: String;
   nameBooking: String;
   roomNumber: String;
   status: String;
-  bookedTime: String;
 }
 
 export interface IHotel {
@@ -14,11 +14,12 @@ export interface IHotel {
 }
 
 export interface IHotelContract {
-  hotelContract:string;
+  hotelContract: string;
   hotel: IHotelInstance;
-
+  availableRooms?: number;
 }
-export interface IHotelInstance{
-  hotelName:string;
+export interface IHotelInstance {
+  hotelName: string;
   roomNumbers: string;
+  hotelOwner: string;
 }

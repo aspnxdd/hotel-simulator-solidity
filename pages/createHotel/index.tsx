@@ -27,7 +27,6 @@ const CreateHotel = () => {
   );
   const [pubkey, setPubkey] = useRecoilState(pubkeyState);
 
-
   const formik = useFormik({
     initialValues: {
       hotelName: "",

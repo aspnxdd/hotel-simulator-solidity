@@ -49,6 +49,11 @@
 						"internalType": "uint256",
 						"name": "roomNumbers",
 						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "hotelOwner",
+						"type": "address"
 					}
 				],
 				"internalType": "struct Hotel",
@@ -58,19 +63,6 @@
 			{
 				"internalType": "address",
 				"name": "hotelContract",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "masterOwner",
-		"outputs": [
-			{
-				"internalType": "address payable",
-				"name": "",
 				"type": "address"
 			}
 		],
@@ -94,6 +86,11 @@
 								"internalType": "uint256",
 								"name": "roomNumbers",
 								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "hotelOwner",
+								"type": "address"
 							}
 						],
 						"internalType": "struct Hotel",
