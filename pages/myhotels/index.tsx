@@ -70,7 +70,7 @@ const Home: NextPage = () => {
         {loading
           ? "Loading..."
           : hotels.length >= 0
-          ? "🟣Your hotels🟣"
+          ? "🟣 My hotels 🟣"
           : "You have no hotels"}
       </h1>
       <div className="flex">
