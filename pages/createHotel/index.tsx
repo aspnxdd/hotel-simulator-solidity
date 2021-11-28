@@ -75,11 +75,11 @@ const CreateHotel = () => {
 
   return (
     <form
-      className="flex flex-col items-center h-auto mt-7  justify-center"
+      className="flex flex-col items-center h-auto justify-center"
       onSubmit={formik.handleSubmit}
     >
       
-      <div className="flex flex-col p-4 xxl-shadow rounded-2xl min-w-max w-80 scale-95 ml-5 mr-2">
+      <div className="flex flex-col p-4 xxl-shadow rounded-2xl min-w-max w-80 scale-90">
         <div className="flex justify-between">
           <h1 className="items-start font-bold text-2xl">Create my hotel</h1>
 

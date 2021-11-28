@@ -47,10 +47,11 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
   });
 
   return (
-    <div className="connect-div w-12/12 space-x-6">
+    <div className="connect-div">
       {pubkey && (
         <button
-          className="right-0 p-2 m-2 -mr-4 text-2xl transition-all duration-100 ease-linear border-4 md:mr-0 text-maticColor border-maticColor rounded-3xl hover:bg-maticColor hover:text-white"
+          className="right-0 p-2 m-2 text-2xl transition-all duration-100 ease-linear border-4 text-maticColor
+           border-maticColor rounded-3xl hover:bg-maticColor hover:text-white"
           onClick={connectWithMetamask}
         >
           {chainId == "" ? "Wrong Network" : chainId}
@@ -58,7 +59,8 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
       )}
 
       <button
-        className="right-0 p-3 m-2 text-2xl text-white transition-all duration-100 ease-linear bg-maticColor rounded-3xl hover:bg-maticColorHover"
+        className="right-0 p-3 m-2 text-2xl text-white transition-all duration-100 ease-linear
+         bg-maticColor rounded-3xl hover:bg-maticColorHover"
         onClick={connectWithMetamask}
       >
         {pubkey == ""

@@ -122,7 +122,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       Free rooms:{" "}
-      <div className="flex flex-row flex-wrap items-center mx-72">
+      <div className="flex flex-row flex-wrap items-center md:mx-72 mx-2 ">
         {rooms.map((e) => {
           if (e.status == "0")
             return (

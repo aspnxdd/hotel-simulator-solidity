@@ -7,6 +7,8 @@
 
 body{
   margin-left: 5rem;
+  height: 100%;
+  width: 100%;
 }
 
 .table {
@@ -130,9 +132,13 @@ td:nth-child(1) {
      origin-left scale-0 bg-gray-800 rounded-md shadow-md min-w-max left-14;
   }
   .connect-div {
-    @apply flex justify-end -mr-16 scale-75;
+    @apply sticky flex justify-end md:scale-75 space-x-8 scale-50 w-[100vw] ml-20;
   }
   .span-sidebar-tooltip {
     @apply sidebar-tooltip group-hover:scale-100;
+  }
+
+  .room {
+    @apply flex items-start relative bg-indigo-400 rounded-3xl justify-end h-40 w-72 flex-col;
   }
 }

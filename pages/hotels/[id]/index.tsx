@@ -108,7 +108,7 @@ const Hotel: NextPage = () => {
   }, [myContractInstance]);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center w-[100vw]">
       <Link href="/hotels/[id]/[bookroom]" as={`/hotels/${id}/bookroom`}>
         <a className="p-2 transition-all duration-100 ease-linear rounded-xl bg-maticColorHover hover:scale-105">
           Book a room
