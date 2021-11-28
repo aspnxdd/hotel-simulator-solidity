@@ -8,7 +8,9 @@ module.exports = {
       'sidebar',
       'connect-div',
       'group',
-      'span-sidebar-tooltip'
+      'span-sidebar-tooltip',
+      'room',
+      'hotel-rooms'
     ]
   },
   mode: "jit",

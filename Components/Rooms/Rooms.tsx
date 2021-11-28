@@ -10,7 +10,7 @@ export const Rooms = ({ rooms, owner, currentTime,hotelName }: IHotel) => {
       <div className="max-w-[60rem] flex mb-8 flex-wrap justify-center
        items-center rounded-3xl shadow-2xl mx-4 bg-maticColor pb-5">
       <h1 className="text-7xl m-4">🌟{hotelName}🌟</h1>
-        <div className="flex gap-8 p-1 flex-wrap items-center justify-center">
+        <div className="hotel-rooms">
         {rooms.map((room) => {
           return (
             
