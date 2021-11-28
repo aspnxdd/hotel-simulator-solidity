@@ -5,10 +5,11 @@ import { useState } from "react";
 import Link from "next/link";
 declare const window: any;
 import { Master } from "../../contracts/contract";
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { pubkeyState } from "../../Components/states";
 import { useRecoilState } from "recoil";
+import ReactTooltip from "react-tooltip";
 
 // Declare matic mumbai provider
 const NODE_URL =
@@ -22,6 +23,8 @@ const myContractInstance = new web3.eth.Contract(ABI as AbiItem[], Master);
 
 const CreateHotel = () => {
   const [loader, setLoader] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
+
   const [successfulCreation, setSuccessfulCreation] = useState<string | null>(
     null
   );
@@ -38,6 +41,9 @@ const CreateHotel = () => {
     },
   });
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   async function createHotel() {
     const web3 = new Web3(window.ethereum);
     setLoader(true);
@@ -55,23 +61,38 @@ const CreateHotel = () => {
         .encodeABI(),
     };
 
-    await web3.eth.sendTransaction(transactionParameters).then((e: any) => {
-      setLoader(false);
-      setSuccessfulCreation(e.transactionHash);
-      console.log(15, e);
-    }).catch(err=>{
-      if(err.code===4001) setLoader(false);
-    });
+    await web3.eth
+      .sendTransaction(transactionParameters)
+      .then((e: any) => {
+        setLoader(false);
+        setSuccessfulCreation(e.transactionHash);
+        console.log(15, e);
+      })
+      .catch((err) => {
+        if (err.code === 4001) setLoader(false);
+      });
   }
 
-
   return (
-   
     <form
       className="flex flex-col items-center "
       onSubmit={formik.handleSubmit}
     >
-      <div className="flex flex-col items-center p-4 xxl-shadow rounded-2xl">
+      <div className="flex flex-col p-4 xxl-shadow rounded-2xl">
+        <div className="flex justify-between">
+          <h1 className="items-start font-bold text-xl">Create you hotel</h1>
+
+          <h1
+            data-tip="You can create your own hotel by executing an Smart Contract 
+          that will instanciate an Hotel Class and will return its contract address"
+            className="text-right font-bold text-indigo-600 text-lg"
+          >
+            ?
+          </h1>
+          {isMounted && <ReactTooltip place="right" effect="solid" className="info-span" />}
+        </div>
+
+        <hr className="w-56 mt-4 mb-2 border-t" />
         <label htmlFor="firstName">Hotel Name</label>
         <input
           id="hotelName"

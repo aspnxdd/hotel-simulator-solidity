@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import ABI from "../../contracts/Master_ABI.json";
+import Master_ABI from "../../contracts/Master_ABI.json";
+import HotelBooking_ABI from "../../contracts/HotelBooking_ABI.json";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { IHotelContract } from "../../types";
+import { IHotelContract,IRoom } from "../../types";
 import { Master } from "../../contracts/contract";
 
 // Declare matic mumbai provider
@@ -13,9 +14,9 @@ const NODE_URL =
 const provider = new Web3.providers.HttpProvider(NODE_URL);
 const web3 = new Web3(provider);
 
-console.log(ABI);
 
-const myContractInstance = new web3.eth.Contract(ABI as AbiItem[], Master);
+
+const myContractInstance = new web3.eth.Contract(Master_ABI as AbiItem[], Master);
 
 const Home: NextPage = () => {
   const [hotels, setHotels] = useState<Array<IHotelContract>>([]);
@@ -24,8 +25,27 @@ const Home: NextPage = () => {
     myContractInstance.methods
       .returnHotels()
       .call()
-      .then((e: IHotelContract[]) => {
-        setHotels(e);
+      .then(async(e: IHotelContract[]) => {
+
+        const data: Array<IHotelContract> = await Promise.all(
+          e.map(async (hotel) => {
+            const hotelContractInstance = new web3.eth.Contract(
+              HotelBooking_ABI as AbiItem[],
+              hotel.hotelContract
+            );
+            return {
+              ...hotel,
+              availableRooms: (
+                await hotelContractInstance.methods.hotelStatus().call()
+              ).reduce((availableRooms: number, room: IRoom) => {
+                if (room.status == "0") return availableRooms + 1;
+                else return availableRooms;
+              }, 0),
+            };
+          })
+        );
+
+        setHotels(data);
       });
   }
 
@@ -39,7 +59,7 @@ const Home: NextPage = () => {
         <thead className="text-white bg-maticColor">
           <tr>
             <th className="p-3">Hotel name</th>
-            <th className="p-3">Number of rooms</th>
+            <th className="p-3">Available rooms</th>
             <th className="p-3">Contract address</th>
             <th className="p-3">Link</th>
           </tr>
@@ -52,8 +72,9 @@ const Home: NextPage = () => {
                 className="bg-indigo-200 lg:text-black"
               >
                 <td className="p-1 text-center">{hotel.hotel.hotelName}</td>
-                <td className="p-1 text-center">{hotel.hotel.roomNumbers}</td>
-                <td className="p-1 text-center">{hotel.hotelContract}</td>
+                <td className="p-1 text-center">{hotel.availableRooms}/{hotel.hotel.roomNumbers}</td>
+                <td className="p-1 text-center">{hotel.hotelContract.substring(0, 6)}...
+                    {hotel.hotelContract.substring(39, 42)}</td>
                 <td className="p-2 text-center">
                   {" "}
                   <Link
