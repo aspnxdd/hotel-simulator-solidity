@@ -54,7 +54,7 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col scale-50 md:scale-100 ml-4 items-center justify-center">
+    <div className="flex flex-col scale-90 md:scale-100 ml-5 items-center justify-center">
       <table className="table text-sm text-gray-400 border-separate rounded-full mt-6">
         <thead className="text-white bg-maticColor">
           <tr>
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
                       hotel.hotel.hotelName
                     }
                   >
-                    <a className="px-2 py-0.5 bg-white rounded-xl hover:rounded-md hover:bg-maticColor hover:text-white transition-all ease-in-out duration-150">
+                    <a className="px-2 py-0.5 bg-white rounded-xl truncate overflow-scroll hover:rounded-md hover:bg-maticColor hover:text-white transition-all ease-in-out duration-150">
                       Visit hotel
                     </a>
                   </Link>

@@ -75,24 +75,27 @@ const CreateHotel = () => {
 
   return (
     <form
-      className="flex flex-col items-center "
+      className="flex flex-col items-center h-auto mt-7  justify-center"
       onSubmit={formik.handleSubmit}
     >
-      <div className="flex flex-col p-4 xxl-shadow rounded-2xl">
+      
+      <div className="flex flex-col p-4 xxl-shadow rounded-2xl min-w-max w-80 scale-95 ml-5 mr-2">
         <div className="flex justify-between">
-          <h1 className="items-start font-bold text-xl">Create you hotel</h1>
+          <h1 className="items-start font-bold text-2xl">Create my hotel</h1>
 
           <h1
             data-tip="You can create your own hotel by executing an Smart Contract 
-          that will instanciate an Hotel Class and will return its contract address"
-            className="text-right font-bold text-indigo-600 text-lg"
+          that will instantiate an Hotel contract on your call, which returns the hotel's contract address."
+            className="text-right font-bold text-indigo-600 border-indigo-300 text-lg border-2 rounded-full px-[0.6rem] cursor-pointer hover:border-indigo-500 transition-all ease-in-out duration-300"
           >
             ?
           </h1>
-          {isMounted && <ReactTooltip place="right" effect="solid" className="info-span" />}
+          {isMounted && (
+            <ReactTooltip place="right" effect="solid" className="info-span" />
+          )}
         </div>
 
-        <hr className="w-56 mt-4 mb-2 border-t" />
+        <hr className="w-80 mt-4 mb-2 border-t" />
         <label htmlFor="firstName">Hotel Name</label>
         <input
           id="hotelName"
@@ -114,12 +117,22 @@ const CreateHotel = () => {
           value={formik.values.roomsNumber}
           min="1"
           pattern="\d*"
-          className="text-center border-4 outline-none rounded-2xl border-maticColor"
+          className="text-center border-4 max-w-sm outline-none rounded-2xl border-maticColor"
         />
 
-        <hr className="w-56 mt-4 mb-2 border-t" />
+        <hr className="w-80 mt-4 mb-2 border-t" />
+        <div className="flex justify-between">
+          <div>Price: </div>
+          <span className="flex flex-row scale-125 font-bold items-center">0.1 <img
+            src="../../static/polygon-matic-logo.svg"
+            alt="matic"
+            className="w-4 scale-90"
+          /></span>
+          
+         
+        </div>
         <button
-          className="w-auto p-2 mt-2 font-bold text-white transition-all duration-100 ease-linear bg-indigo-300 rounded-3xl hover:scale-105 hover:bg-indigo-400"
+          className="max-w-sm p-2 mt-2 font-bold text-white transition-all duration-100 ease-linear bg-indigo-300 rounded-3xl hover:scale-105 hover:bg-indigo-400"
           type="submit"
         >
           Submit

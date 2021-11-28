@@ -66,14 +66,14 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-wrap flex-col items-center justify-center">
-      <h1 className="text-center text-6xl text-black mt-6 loading-text">
+      <h1 className="text-center md:text-6xl text-4xl text-black mt-6 loading-text">
         {loading
           ? "Loading..."
           : hotels.length >= 0
           ? "🟣 My hotels 🟣"
           : "You have no hotels"}
       </h1>
-      <div className="flex flex-wrap space-x-8 mt-8">
+      <div className="flex flex-wrap ml-7 gap-3 mt-11 scale-90 md:scale-100">
         {hotels.map((hotel) => {
           return (
             <Next
@@ -82,14 +82,15 @@ const Home: NextPage = () => {
             >
               <a className="loading-text">
                 <div className="w-64 h-64 flex flex-col rounded-xl border-2 p-4 space-y-4 hover:shadow-xl transition-all duration-200 ease-in-out hover:border-indigo-300">
-                  <h1>
-                    <b>Name:</b> {hotel.hotel.hotelName}
+                  <h1 className="bold text-2xl text-indigo-700">
+                    {hotel.hotel.hotelName}
                   </h1>
+                  <hr className="w-56 mt-4 mb-2 border-t" />
                   <h1>
                     <b>Contract:</b> {hotel.hotelContract.substring(0, 6)}...
                     {hotel.hotelContract.substring(39, 42)}
                   </h1>
-                  <h1>
+                  <h1 className="">
                     <b>Available rooms: </b>
                     {hotel.availableRooms}/{hotel.hotel.roomNumbers}
                   </h1>
