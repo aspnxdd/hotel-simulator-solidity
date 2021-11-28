@@ -66,14 +66,14 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-wrap flex-col items-center justify-center">
-      <h1 className="text-center text-6xl text-black mt-6 loading-text mb-8">
+      <h1 className="text-center text-6xl text-black mt-6 loading-text">
         {loading
           ? "Loading..."
           : hotels.length >= 0
           ? "🟣 My hotels 🟣"
           : "You have no hotels"}
       </h1>
-      <div className="flex">
+      <div className="flex flex-wrap space-x-8 mt-8">
         {hotels.map((hotel) => {
           return (
             <Next
