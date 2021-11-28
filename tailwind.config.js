@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    content: ['./components/**/*.tsx', './pages/**/*.tsx'],
+    content: ['./Components/**/*.tsx', './pages/**/*.tsx'],
     safelist: [
       'sidebar-icon',
       'sidebar-icon-bottom',
