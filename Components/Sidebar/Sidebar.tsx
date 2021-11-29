@@ -1,5 +1,11 @@
 import { PropsWithChildren, ReactElement } from "react";
-import { FiBook, FiHome, FiInfo, FiPlusSquare,FiDatabase } from "react-icons/fi";
+import {
+  FiBook,
+  FiHome,
+  FiInfo,
+  FiPlusSquare,
+  FiDatabase,
+} from "react-icons/fi";
 import { BsBuilding } from "react-icons/bs";
 import Link from "next/link";
 import { pubkeyState } from "../../Components/states";
@@ -11,7 +17,6 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
   const router = useRouter();
   const { id } = router.query;
   const [pubkey, setPubkey] = useRecoilState(pubkeyState);
-
 
   return (
     <div className="sidebar">
@@ -26,12 +31,11 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
         tooltip="Create your own hotel"
         href="/createHotel"
       />
-       {pubkey && (
+      {pubkey && (
         <SideBarIconA
           icon={<FiDatabase size="28" />}
           tooltip="My hotels"
           href="/myhotels"
-          
         />
       )}
       {id && (
@@ -42,7 +46,11 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
           as={`/hotels/${id}/bookroom`}
         />
       )}
-      <SideBarIconA icon={<FiInfo size="28" />} tooltip="Info" href="https://arnauespin.gitbook.io/hotel-room-booking/" />
+      <SideBarIconA
+        icon={<FiInfo size="28" />}
+        tooltip="Info"
+        href="https://arnauespin.gitbook.io/hotel-room-booking/"
+      />
     </div>
   );
 };
@@ -58,14 +66,14 @@ const SideBarIconA = ({
   href: string;
   as?: string;
 }) => (
-  <div
-    className={
-      tooltip == "Info" ? "sidebar-icon-bottom group" : "sidebar-icon group"
-    }
-  >
-    <Link href={href} as={as}>
+  <Link href={href} as={as}>
+    <div
+      className={
+        tooltip == "Info" ? "sidebar-icon-bottom group" : "sidebar-icon group"
+      }
+    >
       <a>{icon}</a>
-    </Link>
-    <span className="span-sidebar-tooltip">{tooltip}</span>
-  </div>
+      <span className="span-sidebar-tooltip">{tooltip}</span>
+    </div>
+  </Link>
 );

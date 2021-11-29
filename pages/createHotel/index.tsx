@@ -86,7 +86,8 @@ const CreateHotel = () => {
           <h1
             data-tip="You can create your own hotel by executing an Smart Contract 
           that will instantiate an Hotel contract on your call, which returns the hotel's contract address."
-            className="text-right font-bold text-indigo-600 border-indigo-300 text-lg border-2 rounded-full px-[0.6rem] cursor-pointer hover:border-indigo-500 transition-all ease-in-out duration-300"
+            className="text-right font-bold text-indigo-600 border-indigo-300 text-lg border-2 rounded-full 
+            px-[0.6rem] cursor-pointer hover:border-indigo-500 transition-all ease-in-out duration-300"
           >
             ?
           </h1>
