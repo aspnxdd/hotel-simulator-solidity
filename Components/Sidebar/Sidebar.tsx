@@ -8,7 +8,7 @@ import {
 } from "react-icons/fi";
 import { BsBuilding } from "react-icons/bs";
 import Link from "next/link";
-import { pubkeyState } from "../../Components/states";
+import { pubkeyState } from "Components/states";
 import { useRecoilState } from "recoil";
 
 import { useRouter } from "next/router";

@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import ABI from "../../../contracts/HotelBooking_ABI.json";
+import ABI from "contracts/HotelBooking_ABI.json";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Rooms } from "../../../Components/Rooms/Rooms";
-import { IRoom } from "../../../types";
+import { Rooms } from "Components/Rooms/Rooms";
+import { IRoom } from "types";
 import { Contract } from "web3-eth-contract";
 import Link from "next/link";
 declare const window: any;

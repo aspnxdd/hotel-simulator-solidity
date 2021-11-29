@@ -9,15 +9,14 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <title>Hotel Simulator - Matic</title>
-          <link rel="shortcut icon" href="/static/icon.png" />
-
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, 
+        <title>Hotel Simulator - Matic</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, 
 user-scalable=no"
-          ></meta>
+        ></meta>
+        <Head>
+          <link rel="shortcut icon" href="/static/icon.png" />
         </Head>
         <body>
           <Main />

@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import Master_ABI from "../../contracts/Master_ABI.json";
-import HotelBooking_ABI from "../../contracts/HotelBooking_ABI.json";
+import Master_ABI from "contracts/Master_ABI.json";
+import HotelBooking_ABI from "contracts/HotelBooking_ABI.json";
 import { useState, useEffect } from "react";
-import { IHotelContract, IRoom } from "../../types";
-import { Master } from "../../contracts/contract";
-import { pubkeyState } from "../../Components/states";
+import { IHotelContract, IRoom } from "types";
+import { Master } from "contracts/contract";
+import { pubkeyState } from "Components/states";
 import { useRecoilState } from "recoil";
 import Next from "next/link";
 
@@ -54,7 +54,7 @@ const Home: NextPage = () => {
             };
           })
         );
-        console.log(myRooms);
+
         setHotels(myRooms);
         setLoading(false);
       });
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
           ? "🟣 My hotels 🟣"
           : "You have no hotels"}
       </h1>
-      <div className="flex flex-wrap ml-7 gap-3 mt-11 scale-90 md:scale-100">
+      <div className="flex justify-center items-center flex-wrap gap-3 mt-2 md:mt-11 scale-90 md:scale-100">
         {hotels.map((hotel) => {
           return (
             <Next
@@ -81,16 +81,16 @@ const Home: NextPage = () => {
               href={`hotels/${hotel.hotelContract}-${hotel.hotel.hotelName}`}
             >
               <a className="loading-text">
-                <div className="w-64 h-64 flex flex-col rounded-xl border-2 p-4 space-y-4 hover:shadow-xl transition-all duration-200 ease-in-out hover:border-indigo-300">
+                <div className="w-60 h-44 flex flex-col rounded-xl border-2 p-4 space-y-4 hover:shadow-xl transition-all duration-200 ease-in-out hover:border-indigo-300">
                   <h1 className="bold text-2xl text-indigo-700">
                     {hotel.hotel.hotelName}
                   </h1>
-                  <hr className="w-56 mt-4 mb-2 border-t" />
+                  <hr className="w-52 mt-4 mb-2 border-t" />
                   <h1>
                     <b>Contract:</b> {hotel.hotelContract.substring(0, 6)}...
                     {hotel.hotelContract.substring(39, 42)}
                   </h1>
-                  <h1 className="">
+                  <h1>
                     <b>Available rooms: </b>
                     {hotel.availableRooms}/{hotel.hotel.roomNumbers}
                   </h1>

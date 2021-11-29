@@ -1,6 +1,6 @@
 import "../styles/tailwind.css";
-import { SideBar } from "../Components/Sidebar/Sidebar";
-import { Connect } from "../Components/Connect/Connect";
+import { SideBar } from "Components/Sidebar/Sidebar";
+import { Connect } from "Components/Connect/Connect";
 import { RecoilRoot } from "recoil";
 
 

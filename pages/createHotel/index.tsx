@@ -1,13 +1,13 @@
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import ABI from "../../contracts/Master_ABI.json";
+import ABI from "contracts/Master_ABI.json";
 import { useState } from "react";
 import Link from "next/link";
 declare const window: any;
-import { Master } from "../../contracts/contract";
+import { Master } from "contracts/contract";
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { pubkeyState } from "../../Components/states";
+import { pubkeyState } from "Components/states";
 import { useRecoilState } from "recoil";
 import ReactTooltip from "react-tooltip";
 

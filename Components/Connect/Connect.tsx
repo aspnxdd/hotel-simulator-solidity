@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect } from "react";
-import { pubkeyState, chainIdState } from "../../Components/states";
+import { pubkeyState, chainIdState } from "Components/states";
 import { useRecoilState } from "recoil";
 import Web3 from "web3";
 import useSWR from "swr";

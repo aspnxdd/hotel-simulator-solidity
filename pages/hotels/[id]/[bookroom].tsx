@@ -7,7 +7,7 @@ import { IRoom } from "../../../types";
 import { Contract } from "web3-eth-contract";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { pubkeyState } from "../../../Components/states";
+import { pubkeyState } from "Components/states";
 import { useRecoilState } from "recoil";
 declare const window: any;
 
