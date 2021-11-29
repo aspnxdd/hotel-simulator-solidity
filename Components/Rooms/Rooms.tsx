@@ -5,8 +5,8 @@ const empty = "";
 
 export const Rooms = ({ rooms, owner, currentTime, hotelName }: IHotel) => {
   return (
-    <div className="w-[100vw] h-[100vh] flex flex-col items-center my-3">
-      <h1 className="mt-1 text-3xl">
+    <div className="h-[100vh] flex flex-col items-center my-3">
+      <h1 className="mt-1 text-3xl mb-4">
         Owner: {owner.substring(0, 6)}...{owner.substring(39, 42)}
       </h1>
       <div

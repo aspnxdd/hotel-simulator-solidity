@@ -78,7 +78,6 @@ const CreateHotel = () => {
       className="flex flex-col items-center h-auto justify-center"
       onSubmit={formik.handleSubmit}
     >
-      
       <div className="flex flex-col p-4 xxl-shadow rounded-2xl min-w-max w-80 scale-90">
         <div className="flex justify-between">
           <h1 className="items-start font-bold text-2xl">Create my hotel</h1>
@@ -92,7 +91,12 @@ const CreateHotel = () => {
             ?
           </h1>
           {isMounted && (
-            <ReactTooltip place="right" effect="solid" className="info-span" />
+            <ReactTooltip
+              place="right"
+              effect="solid"
+              className="info-span"
+              offset={{ top: 6, right:20 }}
+            />
           )}
         </div>
 
@@ -124,13 +128,14 @@ const CreateHotel = () => {
         <hr className="w-80 mt-4 mb-2 border-t" />
         <div className="flex justify-between">
           <div>Price: </div>
-          <span className="flex flex-row scale-125 font-bold items-center">0.1 <img
-            src="../../static/polygon-matic-logo.svg"
-            alt="matic"
-            className="w-4 scale-90"
-          /></span>
-          
-         
+          <span className="flex flex-row scale-125 font-bold items-center">
+            0.1{" "}
+            <img
+              src="../../static/polygon-matic-logo.svg"
+              alt="matic"
+              className="w-4 scale-90"
+            />
+          </span>
         </div>
         <button
           className="max-w-sm p-2 mt-2 font-bold text-white transition-all duration-100 ease-linear bg-indigo-300 rounded-3xl hover:scale-105 hover:bg-indigo-400"
