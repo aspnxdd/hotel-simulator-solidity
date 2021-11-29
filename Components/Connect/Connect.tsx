@@ -1,11 +1,9 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { pubkeyState, chainIdState } from "../../Components/states";
 import { useRecoilState } from "recoil";
 import Web3 from "web3";
 import useSWR from "swr";
-interface ConnectInfo {
-  chainId: string;
-}
+
 
 declare const window: any;
 
@@ -15,7 +13,7 @@ export const Connect = ({ children }: PropsWithChildren<any>) => {
 
   const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
-  const { data: chainListId, error } = useSWR(
+  const { data: chainListId } = useSWR(
     "https://chainid.network/chains.json",
     fetcher
   );

@@ -1,17 +1,6 @@
 module.exports = {
   purge: {
     content: ['./Components/**/*.tsx', './pages/**/*.tsx'],
-    safelist: [
-      'sidebar-icon',
-      'sidebar-icon-bottom',
-      'sidebar-tooltip',
-      'sidebar',
-      'connect-div',
-      'group',
-      'span-sidebar-tooltip',
-      'room',
-      'hotel-rooms'
-    ]
   },
   mode: "jit",
   darkMode: false, // or 'media' or 'class'
