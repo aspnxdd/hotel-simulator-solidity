@@ -7,7 +7,7 @@ declare const window: any;
 import { Master } from "contracts/contract";
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { pubkeyState } from "Components/states";
+import { pubkeyState,chainIdState } from "Components/states";
 import { useRecoilState } from "recoil";
 import ReactTooltip from "react-tooltip";
 
@@ -29,6 +29,7 @@ const CreateHotel = () => {
     null
   );
   const [pubkey, setPubkey] = useRecoilState(pubkeyState);
+  const [chainId, setChainId] = useRecoilState(chainIdState);
 
   const formik = useFormik({
     initialValues: {
@@ -45,6 +46,7 @@ const CreateHotel = () => {
     setIsMounted(true);
   }, []);
   async function createHotel() {
+    if(!chainId) return alert("Wrong network!")
     const web3 = new Web3(window.ethereum);
     setLoader(true);
     setSuccessfulCreation(null);

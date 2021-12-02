@@ -7,7 +7,7 @@ import { IRoom } from "../../../types";
 import { Contract } from "web3-eth-contract";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { pubkeyState } from "Components/states";
+import { pubkeyState,chainIdState } from "Components/states";
 import { useRecoilState } from "recoil";
 declare const window: any;
 
@@ -27,6 +27,7 @@ const Home: NextPage = () => {
   );
   const [contractAddress, setContractAddress] = useState<string | null>(null);
   const [pubkey, setPubkey] = useRecoilState(pubkeyState);
+  const [chainId, setChainId] = useRecoilState(chainIdState);
   const [loader, setLoader] = useState<boolean>(false);
   const [succesfulBooked, setSuccesfulBooked] = useState<string | null>(null);
 
@@ -94,6 +95,7 @@ const Home: NextPage = () => {
   }
 
   async function bookRoom() {
+    if(!chainId) return alert("Wrong network!")
     if (myContractInstance && contractAddress && window) {
       setLoader(true);
       setSuccesfulBooked("");
