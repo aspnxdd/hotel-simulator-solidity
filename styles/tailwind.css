@@ -121,6 +121,12 @@ td:nth-child(1) {
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
+  .sidebar-icon-bg{
+    background: rgb(36,36,36);
+    background: linear-gradient(337deg, rgba(36,36,36,1) 23%, rgba(108,96,96,1) 55%, rgba(223,223,223,1) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  }
 }
 
 @layer components {
@@ -134,14 +140,14 @@ td:nth-child(1) {
 
   .sidebar-icon {
     @apply relative flex items-center justify-center w-12 h-12 mx-auto mt-4 text-indigo-400 
-    transition-all duration-300 ease-linear bg-gray-800 shadow-lg cursor-pointer hover:bg-indigo-500
+    transition-all duration-300 ease-linear sidebar-icon-bg shadow-lg cursor-pointer hover:bg-indigo-500
      hover:text-white rounded-3xl hover:rounded-xl hover:scale-105;
   }
 
   .sidebar-icon-bottom {
     @apply absolute flex items-center justify-center w-12
      h-12 mx-auto text-indigo-400 transition-all duration-300 ease-linear 
-     bg-indigo-100 shadow-lg cursor-pointer bottom-4 left-4 hover:bg-indigo-500 hover:text-white 
+     sidebar-icon-bg shadow-lg cursor-pointer bottom-4 left-4 hover:bg-indigo-500 hover:text-white 
      rounded-3xl hover:rounded-xl hover:scale-105;
   }
 
