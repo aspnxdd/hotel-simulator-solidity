@@ -20,6 +20,9 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
 
   return (
     <div className="sidebar">
+      <div className="">
+
+     
       <SideBarIconA icon={<FiHome size="28" />} tooltip="Home" href="/" />
       <SideBarIconA
         icon={<BsBuilding size="28" />}
@@ -51,6 +54,7 @@ export const SideBar = ({ children }: PropsWithChildren<any>) => {
         tooltip="Info"
         href="https://arnauespin.gitbook.io/hotel-room-booking/"
       />
+       </div>
     </div>
   );
 };

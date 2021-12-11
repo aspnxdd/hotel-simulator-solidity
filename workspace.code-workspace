@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\nft-doge-floor-price"
+		}
+	],
+	"settings": {
+		"WillLuke.nextjs.hasPrompted": true
+	}
+}

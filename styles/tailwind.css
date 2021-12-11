@@ -9,6 +9,10 @@ body{
   margin-left: 5rem;
   height: 100%;
   width: 90vw;
+  background: rgb(36,36,36);
+  background: linear-gradient(337deg, rgba(36,36,36,1) 0%, rgba(164,150,150,1) 0%, rgba(223,223,223,1) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .table {
@@ -110,6 +114,14 @@ td:nth-child(1) {
 .info-span{
   width: 12rem;
 }
+@layer utilities {
+  .sidebar-bg {
+    background: rgb(36,36,36);
+    background: linear-gradient(337deg, rgba(36,36,36,1) 0%, rgba(108,96,96,1) 0%, rgba(223,223,223,1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
 
 @layer components {
   * {
@@ -117,7 +129,7 @@ td:nth-child(1) {
   }
   
   .sidebar {
-    @apply fixed top-0 left-0 z-10 flex flex-col w-20 h-[100%] m-0 text-white shadow-lg bg-primary;
+    @apply fixed top-0 left-0 z-10 flex flex-col w-20 h-[100%] m-0 text-white shadow-lg sidebar-bg;
   }
 
   .sidebar-icon {
