@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+ font-family: Shippori Antique, sans-serif;
+}
+
 body{
   margin-left: 5rem;
   height: 100%;
@@ -127,12 +131,11 @@ td:nth-child(1) {
   background-repeat: no-repeat;
   background-attachment: fixed;
   }
+ 
 }
 
 @layer components {
-  * {
-    @apply font-ShipporiAntique;
-  }
+ 
   
   .sidebar {
     @apply fixed top-0 left-0 z-10 flex flex-col w-20 h-[100%] m-0 text-white shadow-lg sidebar-bg;
@@ -144,11 +147,8 @@ td:nth-child(1) {
      hover:text-white rounded-3xl hover:rounded-xl hover:scale-105;
   }
 
-  .sidebar-icon-bottom {
-    @apply absolute flex items-center justify-center w-12
-     h-12 mx-auto text-indigo-400 transition-all duration-300 ease-linear 
-     sidebar-icon-bg shadow-lg cursor-pointer bottom-4 left-4 hover:bg-indigo-500 hover:text-white 
-     rounded-3xl hover:rounded-xl hover:scale-105;
+  .sidebar-icon.bottom {
+    @apply absolute bottom-4 left-4;
   }
 
   .sidebar-tooltip {

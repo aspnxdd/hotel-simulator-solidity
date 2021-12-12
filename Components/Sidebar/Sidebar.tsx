@@ -73,7 +73,7 @@ const SideBarIconA = ({
   <Link href={href} as={as}>
     <div
       className={
-        tooltip == "Info" ? "sidebar-icon-bottom group" : "sidebar-icon group"
+        tooltip == "Info" ? "sidebar-icon bottom group" : "sidebar-icon group"
       }
     >
       <a>{icon}</a>

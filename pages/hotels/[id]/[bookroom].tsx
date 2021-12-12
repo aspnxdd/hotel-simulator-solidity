@@ -7,8 +7,11 @@ import { IRoom } from "../../../types";
 import { Contract } from "web3-eth-contract";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { pubkeyState,chainIdState } from "Components/states";
+import Image from "next/image";
+import { pubkeyState, chainIdState } from "Components/states";
 import { useRecoilState } from "recoil";
+import maticLogo from "public/static/matic-logo.svg";
+
 declare const window: any;
 
 // Declare matic mumbai provider
@@ -95,7 +98,7 @@ const Home: NextPage = () => {
   }
 
   async function bookRoom() {
-    if(!chainId) return alert("Wrong network!")
+    if (!chainId) return alert("Wrong network!");
     if (myContractInstance && contractAddress && window) {
       setLoader(true);
       setSuccesfulBooked("");
@@ -129,7 +132,7 @@ const Home: NextPage = () => {
           if (e.status == "0")
             return (
               <h6
-                className="bg-indigo-200 m-2 rounded-full w-8 h-8 flex justify-center items-center pb-0.5 cursor-default"
+                className="bg-indigo-300 m-2 rounded-full w-8 h-8 flex justify-center items-center pb-0.5 cursor-default"
                 key={Number(e.roomNumber)}
               >
                 {e.roomNumber}
@@ -139,7 +142,7 @@ const Home: NextPage = () => {
       </div>
       <Form owner={owner} days={days} setDays={setDays} />
       <button
-        className="w-auto p-2 mt-2 font-bold text-white transition-all duration-100 ease-linear bg-indigo-300 rounded-3xl hover:scale-105 hover:bg-indigo-400"
+        className="w-auto p-2 mt-2 font-bold text-white transition-all duration-100 ease-linear bg-indigo-400 rounded-3xl hover:scale-105 hover:bg-indigo-400"
         onClick={bookRoom}
       >
         Book now
@@ -168,21 +171,18 @@ const Form = ({
   setDays: Dispatch<SetStateAction<number>>;
   owner: string;
 }) => (
-  <div className="flex flex-col justify-center h-56 pl-4 mt-8 border-0 border-indigo-300 border-solid rounded-md w-96 place-items-start xxl-shadow">
+  <div className="flex flex-col justify-center h-56 pl-4 mt-8 border-0 border-indigo-300 border-solid 
+  rounded-md w-96 place-items-start xxl-shadow bg-gray-200" >
     <div className="text-xl font-bold">Hotel owner</div>
 
     <div className="text-sm text-maticColor">{`${owner.substring(
       0,
       6
     )}...${owner.substring(39, 42)}`}</div>
-    <div className="flex my-1 -ml-4 border-b-2 border-solid w-96"></div>
+    <div className="flex my-1 -ml-4 border-b-2 border-solid w-96 bg-white"></div>
     <div className="flex items-center space-x-2">
       <div>Booking price: 0.1 </div>
-      <img
-        src="../../static/polygon-matic-logo.svg"
-        alt="matic"
-        className="w-4 scale-90"
-      />{" "}
+      <Image src={maticLogo} alt="matic" width={20} />
       <div>/day</div>
     </div>
     <div className="flex items-center">
@@ -190,7 +190,7 @@ const Form = ({
 
       <button
         className="rounded-full flex justify-center items-center shadow-xl hover:scale-110 transition-all ease-linear duration-100 text-center 
-    p-0 font-bold text-2xl bg-indigo-200 text-white border-indigo-200 border-solid border-2 h-8 w-8 pb-1.5 m-4 "
+    p-0 font-bold text-2xl bg-indigo-300 text-white border-indigo-200 border-solid border-2 h-8 w-8 pb-1.5 m-4 "
         onClick={() => {
           if (days > 1) setDays(days - 1);
         }}
@@ -201,22 +201,18 @@ const Form = ({
 
       <button
         className="rounded-full flex justify-center items-center shadow-xl hover:scale-110 transition-all ease-linear duration-100 text-center 
-    p-0 font-bold text-2xl bg-indigo-200 text-white border-indigo-200 border-solid border-2 h-8 w-8 m-4 pb-0.5 "
+    p-0 font-bold text-2xl bg-indigo-300 text-white border-indigo-200 border-solid border-2 h-8 w-8 m-4 pb-0.5 "
         onClick={() => setDays(days + 1)}
       >
         +{" "}
       </button>
     </div>
-    <div className="flex mt-2 -ml-4 border-b-2 border-solid w-96"></div>
+    <div className="flex mt-2 -ml-4 border-b-2 border-solid w-96 bg-white"></div>
     <div className="flex items-center mt-6 space-x-40 font-bold">
       <div className="text-left "> Total Price: </div>
-      <div className="flex pl-6 space-x-2 text-xl text-right text-maticColor ">
-        <div>{Math.round((1 / 10) * days * 1000) / 1000}</div>
-        <img
-          src="../../static/polygon-matic-logo.svg"
-          alt="matic"
-          className="w-6 scale-90"
-        />
+      <div className="flex pl-6 text-xl text-right text-gray-600 items-center">
+        <div className="mr-2">{Math.round((1 / 10) * days * 1000) / 1000}</div>
+        <Image src={maticLogo} alt="matic" width={22} />
       </div>
     </div>
   </div>

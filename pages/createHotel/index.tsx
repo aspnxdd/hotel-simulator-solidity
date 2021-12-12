@@ -10,6 +10,8 @@ import { useFormik } from "formik";
 import { pubkeyState,chainIdState } from "Components/states";
 import { useRecoilState } from "recoil";
 import ReactTooltip from "react-tooltip";
+import Image from "next/image"
+import maticLogo  from "public/static/matic-logo.svg"
 
 // Declare matic mumbai provider
 const NODE_URL =
@@ -80,7 +82,7 @@ const CreateHotel = () => {
       className="flex flex-col items-center h-auto justify-center"
       onSubmit={formik.handleSubmit}
     >
-      <div className="flex flex-col p-4 xxl-shadow rounded-2xl min-w-max w-80 scale-90">
+      <div className="flex flex-col p-4 xxl-shadow rounded-2xl min-w-max w-80 scale-90 bg-gray-200">
         <div className="flex justify-between">
           <h1 className="items-start font-bold text-2xl">Create my hotel</h1>
 
@@ -102,7 +104,7 @@ const CreateHotel = () => {
           )}
         </div>
 
-        <hr className="w-80 mt-4 mb-2 border-t" />
+        <hr className="w-80 mt-4 mb-2 border-t bg-white" />
         <label htmlFor="firstName">Hotel Name</label>
         <input
           id="hotelName"
@@ -110,7 +112,7 @@ const CreateHotel = () => {
           type="text"
           onChange={formik.handleChange}
           value={formik.values.hotelName}
-          className="mb-4 text-center border-4 outline-none rounded-2xl border-maticColor"
+          className="mb-4 text-center border-4 outline-none rounded-2xl border-maticColor "
           placeholder="My Hotel"
           required
         />
@@ -124,23 +126,26 @@ const CreateHotel = () => {
           value={formik.values.roomsNumber}
           min="1"
           pattern="\d*"
-          className="text-center border-4 max-w-sm outline-none rounded-2xl border-maticColor"
+          className="text-center border-4 max-w-sm outline-none rounded-2xl border-maticColor "
         />
 
         <hr className="w-80 mt-4 mb-2 border-t" />
         <div className="flex justify-between">
           <div>Price: </div>
           <span className="flex flex-row scale-125 font-bold items-center">
-            0.1{" "}
-            <img
-              src="../../static/polygon-matic-logo.svg"
+            <p className="mr-2 text-gray-700">0.1{" "}</p>
+            <Image
+              src={maticLogo}
               alt="matic"
-              className="w-4 scale-90"
+              width={20}
+              
+             
             />
           </span>
         </div>
         <button
-          className="max-w-sm p-2 mt-2 font-bold text-white transition-all duration-100 ease-linear bg-indigo-300 rounded-3xl hover:scale-105 hover:bg-indigo-400"
+          className="max-w-sm p-2 mt-2 font-bold text-white transition-all duration-100 ease-linear bg-indigo-400 
+          rounded-3xl hover:scale-105 hover:bg-indigo-500"
           type="submit"
         >
           Submit

@@ -69,7 +69,7 @@ const Home: NextPage = () => {
             return (
               <tr
                 key={hotel.hotelContract}
-                className="bg-indigo-200 lg:text-black"
+                className="bg-indigo-100 lg:text-black"
               >
                 <td className="p-1 text-center">{hotel.hotel.hotelName}</td>
                 <td className="p-1 text-center">{hotel.availableRooms}/{hotel.hotel.roomNumbers}</td>
